@@ -19,6 +19,7 @@ salt=$(ynh_string_random --length=40)
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=10
 ynh_exec_warn_less ynh_install_go --go_version=$GO_VERSION
+trap "ynh_remove_go" EXIT
 export GOPATH="$install_dir/build/go"
 export GOCACHE="$install_dir/build/.cache"
 
@@ -48,7 +49,8 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Building the sources (it will take some time)..." --weight=10
 
-ynh_exec_as $app virtualenv --python=python3 --system-site-packages "${install_dir}/venv"
+ynh_exec_as $app python -m venv "${install_dir}/venv"
+
 (
 	set +o nounset
 	source "${install_dir}/venv/bin/activate"
