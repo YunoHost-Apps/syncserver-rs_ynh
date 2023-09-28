@@ -1,5 +1,8 @@
 #!/bin/bash
-
+#### App file generated with YoloGen, the Yunohost app generator, version 0.6.5.
+# This is the tutorial version of the app.
+# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
+# Once you are done, you may remove them.
 #=================================================
 # GENERIC START
 #=================================================
@@ -38,7 +41,7 @@ upgrade_type=$(ynh_check_app_version_changed)
 #ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 #
-# N.B. : the following setting migration snippets are provided as *EXAMPLES*
+# N.B. : the followings setting migrations snippets are provided as *EXAMPLES*
 # of what you may want to do in some cases (e.g. a setting was not defined on
 # some legacy installs and you therefore want to initiaze stuff during upgrade)
 #
@@ -54,14 +57,12 @@ upgrade_type=$(ynh_check_app_version_changed)
 #	install_dir=/var/www/$app
 #	ynh_app_setting_set --app=$app --key=install_dir --value=$install_dir
 #fi
-
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
-
 #=================================================
 # "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
 #=================================================
@@ -76,8 +77,8 @@ then
 	ynh_setup_source --dest_dir="$install_dir"
 fi
 
-# $install_dir will automatically be initialized with some decent 
-# permissions by default ... however, you may need to recursively reapply
+# $install_dir will automatically be initialized with some decent
+# permission by default ... however, you may need to recursively reapply
 # ownership to all files such as after the ynh_setup_source step
 chown -R $app:www-data "$install_dir"
 
@@ -86,20 +87,15 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
 
-# This should be a literal copypaste of what happened in the install's "System configuration" section
-
-ynh_add_fpm_config
-
+# This should be a literal copypasta of what happened in the install's "System configuration" section
 ynh_add_nginx_config
 
 ynh_add_systemd_config
 
-yunohost service add $app --description="A short description of the app" --log="/var/log/$app/$app.log"
-
+yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 ynh_use_logrotate --non-append
-
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
-
+# Create a dedicated Fail2Ban config
+ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 #=================================================
 # RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
 #=================================================
@@ -111,8 +107,7 @@ ynh_script_progression --message="Updating a configuration file..." --weight=1
 ###
 ### The file will automatically be backed-up if it's found to be manually modified (because
 ### ynh_add_config keeps track of the file's checksum)
-
-ynh_add_config --template="some_config_file" --destination="$install_dir/some_config_file"
+ynh_add_config --template="sync.ini" --destination="$install_dir/sync.ini"
 
 # FIXME: this should be handled by the core in the future
 # You may need to use chmod 600 instead of 400,
@@ -126,14 +121,12 @@ chown $app:$app "$install_dir/some_config_file"
 ###
 ### ynh_replace_string --match_string="match_string" --replace_string="replace_string" --target_file="$install_dir/some_config_file"
 ### ynh_store_file_checksum --file="$install_dir/some_config_file"
-
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
-
 #=================================================
 # END OF SCRIPT
 #=================================================

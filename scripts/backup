@@ -1,5 +1,8 @@
 #!/bin/bash
-
+#### App file generated with YoloGen, the Yunohost app generator, version 0.6.5.
+# This is the tutorial version of the app.
+# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
+# Once you are done, you may remove them.
 #=================================================
 # GENERIC START
 #=================================================
@@ -17,21 +20,13 @@ ynh_print_info --message="Declaring files to be backed up..."
 
 ### N.B. : the following 'ynh_backup' calls are only a *declaration* of what needs
 ### to be backuped and not an actual copy of any file. The actual backup that
-### creates and fills the archive with the files happens in the core after this
-### script is called. Hence ynh_backups calls take basically 0 seconds to run.
-
+### creates and fill the archive with the files happens in the core after this
+### script is called. Hence ynh_backups calls takes basically 0 seconds to run.
 #=================================================
 # BACKUP THE APP MAIN DIR
 #=================================================
 
 ynh_backup --src_path="$install_dir"
-
-#=================================================
-# BACKUP THE DATA DIR
-#=================================================
-
-# Only relevant if there is a "data_dir" resource for this app
-ynh_backup --src_path="$data_dir" --is_big
 
 #=================================================
 # BACKUP THE NGINX CONFIGURATION
@@ -40,18 +35,11 @@ ynh_backup --src_path="$data_dir" --is_big
 ynh_backup --src_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 #=================================================
-# BACKUP THE PHP-FPM CONFIGURATION
-#=================================================
-
-ynh_backup --src_path="/etc/php/$phpversion/fpm/pool.d/$app.conf"
-
-#=================================================
 # BACKUP FAIL2BAN CONFIGURATION
 #=================================================
 
 ynh_backup --src_path="/etc/fail2ban/jail.d/$app.conf"
 ynh_backup --src_path="/etc/fail2ban/filter.d/$app.conf"
-
 #=================================================
 # SPECIFIC BACKUP
 #=================================================
@@ -59,13 +47,11 @@ ynh_backup --src_path="/etc/fail2ban/filter.d/$app.conf"
 #=================================================
 
 ynh_backup --src_path="/etc/logrotate.d/$app"
-
 #=================================================
 # BACKUP SYSTEMD
 #=================================================
 
 ynh_backup --src_path="/etc/systemd/system/$app.service"
-
 #=================================================
 # BACKUP VARIOUS FILES
 #=================================================
@@ -74,16 +60,16 @@ ynh_backup --src_path="/etc/cron.d/$app"
 
 ynh_backup --src_path="/etc/$app/"
 
+
 #=================================================
-# BACKUP THE MYSQL DATABASE
+# BACKUP THE DATABASE
 #=================================================
-ynh_print_info --message="Backing up the MySQL database..."
+ynh_print_info --message="Backing up the mysql database..."
 
 ### (However, things like MySQL dumps *do* take some time to run, though the
 ### copy of the generated dump to the archive still happens later)
 
 ynh_mysql_dump_db --database="$db_name" > db.sql
-
 #=================================================
 # END OF SCRIPT
 #=================================================
