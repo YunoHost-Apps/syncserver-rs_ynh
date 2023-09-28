@@ -3,36 +3,27 @@ packaging_format = 2
 id = "syncstorage-rs"
 name = "Firefox Sync Storage-rs"
 
-description.en = "New Firefox Sync Storage implemented in Rust.
-
-Allows syncing tabs, passwords, history etc. between Firefox instances."
-description.fr = "New Firefox Sync Storage implemented in Rust."
+[description]
+    en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
+    fr = "New Firefox Sync Storage implemented in Rust."
 
 version = "0.13.6~ynh1"
 
 maintainers = [""]
 
 [upstream]
-# NB: Only the "license" key is mandatory. Remove entries for which there's no relevant data
 license = "MPL 2.0"
 website = "https://www.mozilla.org/en-GB/firefox/features/sync/"
-demo = ""
 admindoc = "https://github.com/mozilla-services/syncstorage-rs/blob/master/docs/config.md"
-userdoc = ""
 code = "https://github.com/mozilla-services/syncstorage-rs"
-# FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is sort of a standard id for applications defined by the NIST. In particular, YunoHost may use this is in the future to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here: https://nvd.nist.gov/products/cpe/search. For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
-cpe = "???"
-# FIXME: optional but recommended (or remove if irrelevant / not applicable). This is meant to be an URL where people can financially support this app, especially when its development is based on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
-fund = "???"
-
+fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
 yunohost = ">= 11.1.21"
 # List of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386']
 architectures = "[&#39;all&#39;]" # TODO : handle the "all" option (no ["all"])
-multi_instance = True
-ldap = not_relevant
-sso = not_relevant
+multi_instance = true
+
 # FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
 disk = "50M"
 ram.build = "50M"
@@ -46,29 +37,13 @@ ram.runtime = "50M"
     [install.path]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "path"
-    default = "/example"
+    default = "/syncserver"
+
     [install.init_main_permission]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     # This won't be saved as setting and will instead be used to initialize the SSOwat permission
     type = "group"
     default = "visitors"
-
-    [install.language]
-    ask.en = "Choose the application language"
-    ask.fr = "Choisissez la langue de l'application"
-    type = "select"
-    choices = ['en']
-    default = "en"
-
-    [install.admin]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "user"
-    [install.password]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # Note that user-provided passwords questions are not automatically saved as setting
-    help.en = "Use the help field to add an information for the admin about this question."
-    help.fr = "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-    type = "password"
 
 [resources]
     # See the packaging documentation for the full set
@@ -81,26 +56,27 @@ ram.runtime = "50M"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.13.6.tar.gz"
         sha256 = "ddf8169a0a9bd06db10bf032a2b9af7ea4e5816251e82d9e7627f87eba1f27bd"
-
-        # These infos are used by https://github.com/YunoHost/apps/blob/master/tools/autoupdate_app_sources/autoupdate_app_sources.py
-        # to auto-update the previous asset urls and sha256sum + manifest version
-        # assuming the upstream's code repo is on github and relies on tags or releases
-        # See the 'sources' resource documentation for more details
-
         autoupdate.strategy = "latest_github_tag"
-        [resources.system_user]
+
     # This will provision/deprovision a unix system user
-    [resources.install_dir]
+    [resources.system_user]
+
     # This will create/remove the install dir as /var/www/$app
     # and store the corresponding setting $install_dir
-    [resources.permissions]
+    [resources.install_dir]
+
     # This will configure SSOwat permission for $domain/$path/
     # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
+    [resources.permissions]
     main.url = "/"
 
-    [resources.ports]
     # This will pick a random port for reverse-proxying and store it as the $port setting
+    [resources.ports]
+
+    [resources.apt]
+    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4"
+
+    # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     [resources.database]
-        # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
         type = "mysql"
     

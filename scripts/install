@@ -9,32 +9,21 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 source _common.sh
+source ynh_install_go
 source /usr/share/yunohost/helpers
 
-# Install parameters are automatically saved as settings
-#
-# Settings are automatically loaded as bash variables
-# in every app script context, therefore typically these will exist:
-# - $domain
-# - $path
-# - $language
-# ... etc
-#
-# Resources defined in the manifest are provisioned prior to this script
-# and corresponding settings are also available, such as:
-# - $install_dir
-# - $port
-# - $db_name
-# ...
+salt=$(ynh_string_random --length=40)
 
-#
-# $app is the app id (i.e. 'example' for first install,
-# or 'example__2', '__3', ... for multi-instance installs)
-#
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=10
+ynh_exec_warn_less ynh_install_go --go_version=$GO_VERSION
+export GOPATH="$install_dir/build/go"
+export GOCACHE="$install_dir/build/.cache"
+
+ynh_exec_warn_less ynh_exec_as $app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
+export PATH="$install_dir/.cargo/bin:$PATH"
 
 #=================================================
 # APP "BUILD" (DEPLOYING SOURCES, VENV, COMPILING ETC)
@@ -47,13 +36,40 @@ ynh_script_progression --message="Setting up source files..." --weight=1
 ### downloaded from an upstream source, like a git repository.
 ### `ynh_setup_source` use the file conf/app.src
 # Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/build"
 
 # $install_dir will automatically be initialized with some decent
 # permission by default ... however, you may need to recursively reapply
 # ownership to all files such as after the ynh_setup_source step
 chown -R $app:www-data "$install_dir" 
 
+#=================================================
+# BUILD
+#=================================================
+ynh_script_progression --message="Building the sources (it will take some time)..." --weight=10
+
+ynh_exec_as $app virtualenv --python=python3 --system-site-packages "${install_dir}/venv"
+(
+	set +o nounset
+	source "${install_dir}/venv/bin/activate"
+	set -o nounset
+
+	ynh_use_go
+
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH pip install --upgrade pip
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH pip install --upgrade setuptools
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 pip install -r requirements.txt
+    pushd $install_dir/build
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 cargo install --path ../syncserver --locked --root /app
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 cargo install --path ../syncserver --locked --root /app --bin purge_ttl
+    popd
+)
+
+#ynh_secure_remove --file="$install_dir/.cargo"
+#ynh_secure_remove --file="$install_dir/.rustup"
+#ynh_secure_remove --file="$install_dir/.cache"
+#ynh_secure_remove --file="$install_dir/.local"
+#ynh_secure_remove --file="$install_dir/build"
 
 #=================================================
 # SYSTEM CONFIGURATION
@@ -65,9 +81,9 @@ ynh_add_nginx_config
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
-    yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
+yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
-    # Use logrotate to manage application logfile(s)
+# Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
 
