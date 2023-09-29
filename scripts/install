@@ -12,7 +12,7 @@ source _common.sh
 source ynh_install_go
 source /usr/share/yunohost/helpers
 
-salt=$(ynh_string_random --length=40)
+secret=$(ynh_string_random --length=40)
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -57,12 +57,11 @@ ynh_exec_as $app python -m venv "${install_dir}/venv"
 	source "${install_dir}/venv/bin/activate"
 	set -o nounset
 
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH pip install --upgrade pip
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH pip install --upgrade setuptools
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade pip
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade setuptools
     pushd $install_dir/build
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 pip install -r requirements.txt
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 cargo install --path ./syncserver --locked --root $install_dir
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 cargo install --path ./syncserver --locked --root $install_dir --bin purge_ttl
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 $install_dir/venv/bin/pip install -r requirements.txt
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH GOPATH=$GOPATH GOCACHE=$GOCACHE CGO_ENABLED=1 cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
     popd
 )
 
@@ -87,9 +86,8 @@ yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var
 # Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
-
 # Create a dedicated Fail2Ban config
-ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
+#ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
@@ -97,13 +95,13 @@ ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failreg
 #=================================================
 ynh_script_progression --message="Adding a configuration file..." --weight=1
 
-ynh_add_config --template="sync.ini" --destination="$install_dir/sync.ini"
+ynh_add_config --template="config.toml" --destination="$install_dir/config.toml"
 
 # FIXME: this should be handled by the core in the future
 # You may need to use chmod 600 instead of 400,
 # for example if the app is expected to be able to modify its own config
-chmod 400 "$install_dir/sync.ini"
-chown $app:$app "$install_dir/sync.ini"
+chmod 400 "$install_dir/config.toml"
+chown $app:$app "$install_dir/config.toml"
 
 ### For more complex cases where you want to replace stuff using regexes,
 ### you shoud rely on ynh_replace_string (which is basically a wrapper for sed)
@@ -118,8 +116,8 @@ chown $app:$app "$install_dir/sync.ini"
 
 #### TODO in Yunohost App Generator
 # Installation with curl
-ynh_script_progression --message="Finalizing installation..." --weight=1
-ynh_local_curl "/INSTALL_PATH" "key1=value1" "key2=value2" "key3=value3"
+#ynh_script_progression --message="Finalizing installation..." --weight=1
+#ynh_local_curl "/INSTALL_PATH" "key1=value1" "key2=value2" "key3=value3"
 
 #=================================================
 # GENERIC FINALIZATION
@@ -127,7 +125,6 @@ ynh_local_curl "/INSTALL_PATH" "key1=value1" "key2=value2" "key3=value3"
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
-
 
 # Start a systemd service
 ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
