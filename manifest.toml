@@ -67,7 +67,8 @@ ram.runtime = "50M"
     # This will configure SSOwat permission for $domain/$path/
     # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     [resources.permissions]
-    main.url = "/"
+        main.url = "/"
+        main.show_tile = false
 
     # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]

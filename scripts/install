@@ -9,7 +9,6 @@
 # IMPORT GENERIC HELPERS
 #=================================================
 source _common.sh
-source ynh_install_go
 source /usr/share/yunohost/helpers
 
 secret=$(ynh_string_random --length=40)
@@ -79,7 +78,7 @@ ynh_exec_as $app python -m venv "${install_dir}/venv"
 
 		ynh_mysql_execute_as_root --sql="INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" --database="$db_name_tokenserver";
 
-		ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://syncstorage:${SYNCSTORAGE_PW}@localhost/tokenserver_rs" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://$domain$path_url" 10
+		ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://$domain$path_url" 10
     popd
 )
 
