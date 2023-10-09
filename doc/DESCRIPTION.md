@@ -1,1 +1,1 @@
-This is a dummy description of this app features
+Second-generation server for Firefox Sync written in Rust.

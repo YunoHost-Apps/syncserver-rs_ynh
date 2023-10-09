@@ -1,4 +1,4 @@
-master_secret = "__SECRET__"
+master_secret = "__MASTER_SECRET__"
 
 # removing this line will default to moz_json formatted logs (which is preferred for production envs)
 human_logs = 1
@@ -18,7 +18,7 @@ syncstorage.enabled = true
 syncstorage.limits.max_total_records = 1666 # See issues #298/#333
 
 # Example Tokenserver settings:
-tokenserver.database_url = "mysql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME__"
+tokenserver.database_url = "mysql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME_TOKENSERVER__"
 tokenserver.enabled = true
 tokenserver.node_type = "mysql"
 tokenserver.fxa_email_domain = "api-accounts.stage.mozaws.net"

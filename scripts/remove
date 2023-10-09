@@ -1,8 +1,5 @@
 #!/bin/bash
-#### App file generated with YoloGen, the Yunohost app generator, version 0.6.5.
-# This is the tutorial version of the app.
-# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
-# Once you are done, you may remove them.
+
 #=================================================
 # GENERIC START
 #=================================================
@@ -11,18 +8,6 @@
 source _common.sh
 source /usr/share/yunohost/helpers
 
-# Settings are automatically loaded as bash variables
-# in every app script context, therefore typically these will exist:
-# - $domain
-# - $path
-# - $language
-# - $install_dir
-# - $port
-# ...
-
-# For remove operations :
-# - the core will deprovision every resource defined in the manifest **after** this script is ran
-# this includes removing the install directory, and data directory (if --purge was used)
 #=================================================
 # REMOVE SYSTEM CONFIGURATIONS
 #=================================================
@@ -42,14 +27,16 @@ ynh_remove_systemd_config
 ynh_remove_nginx_config
 
 ynh_remove_logrotate
-ynh_remove_fail2ban_config
-# Remove other various files specific to the app... such as :
-
-ynh_secure_remove --file="/etc/cron.d/$app"
-
-ynh_secure_remove --file="/etc/$app"
 
 ynh_secure_remove --file="/var/log/$app"
+
+#=================================================
+# DROP TOKENSERVER DB
+#=================================================
+ynh_script_progression --message="Deprovisioning TokenServer DB..."
+db_name_tokenserver=$(ynh_app_setting_get --app=$app --key=db_name_tokenserver)
+
+ynh_mysql_drop_db "$db_name_tokenserver"
 
 #=================================================
 # END OF SCRIPT

@@ -7,7 +7,7 @@ name = "Firefox Sync Storage-rs"
     en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
     fr = "New Firefox Sync Storage implemented in Rust."
 
-version = "0.13.6~ynh1"
+version = "0.13.7-20230926~ynh1"
 
 maintainers = [""]
 

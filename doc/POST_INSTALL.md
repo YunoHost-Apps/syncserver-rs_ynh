@@ -1,7 +1,1 @@
-This is a dummy disclaimer to display after the install
-
-The app url is `__DOMAIN____PATH__`
-
-The app install dir is `__INSTALL_DIR__`
-
-The app id is `__ID__`
+Please open `about:config` in your Firefox and point `identity.sync.tokenserver.uri` to `__DOMAIN____PATH__`.
