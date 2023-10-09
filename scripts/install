@@ -14,7 +14,8 @@ source /usr/share/yunohost/helpers
 
 secret=$(ynh_string_random --length=40)
 master_secret=$(ynh_string_random --length=40)
-db_name_tokenserver = "${db_name}_tokenserver"
+db_name_tokenserver="${db_name}_tokenserver"
+ynh_app_setting_set --app=$app --key=db_name_tokenserver --value=$db_name_tokenserver
 
 #=================================================
 # INSTALL DEPENDENCIES
