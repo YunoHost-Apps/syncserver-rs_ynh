@@ -3,9 +3,8 @@ packaging_format = 2
 id = "syncstorage-rs"
 name = "Firefox Sync Storage (new)"
 
-[description]
-    en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
-    fr = "New Firefox Sync Storage implemented in Rust."
+description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
+description.fr = "New Firefox Sync Storage implemented in Rust."
 
 version = "0.13.7-20230926~ynh1"
 

@@ -19,7 +19,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 Ceci est une fausse description des fonctionalités de l'app
 
 
-**Version incluse :** 
+**Version incluse :** 0.13.7-20230926~ynh1
 ## Documentations et ressources
 
 * Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>
