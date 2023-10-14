@@ -1,15 +1,20 @@
 [Unit]
-Description=Small description of the service
+Description=Firefox Sync Storage server
 After=network.target
+After=mariadb.service
 
 [Service]
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__INSTALL_DIR__/
-ExecStart=__INSTALL_DIR__/script
+WorkingDirectory=__INSTALL_DIR__
+ExecStart=__INSTALL_DIR__/bin/syncserver --config ./config.toml
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
+Environment=PATH="__INSTALL_DIR__/venv/bin:$(PATH)"
+Environment=PYTHONPATH=$(PYTHON_SITE_PACKGES)
+Environment=RUST_LOG=error
+Environment=RUST_BACKTRACE=full
 
 # Sandboxing options to harden security
 # Depending on specificities of your service/app, you may need to tweak these
@@ -47,3 +52,4 @@ CapabilityBoundingSet=~CAP_SYS_ADMIN CAP_SYS_PTRACE CAP_SYSLOG
 
 [Install]
 WantedBy=multi-user.target
+

@@ -1,13 +1,12 @@
 packaging_format = 2
 
 id = "syncstorage-rs"
-name = "Firefox Sync Storage-rs"
+name = "Firefox Sync Storage (new)"
 
-[description]
-    en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
-    fr = "New Firefox Sync Storage implemented in Rust."
+description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
+description.fr = "New Firefox Sync Storage implemented in Rust."
 
-version = "0.13.6~ynh1"
+version = "0.13.7-20230926~ynh1"
 
 maintainers = [""]
 
@@ -20,8 +19,7 @@ fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
 yunohost = ">= 11.1.21"
-# List of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386']
-architectures = "[&#39;all&#39;]" # TODO : handle the "all" option (no ["all"])
+architectures = "all"
 multi_instance = true
 
 # FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
@@ -54,9 +52,9 @@ ram.runtime = "50M"
         # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
         #    ynh_setup_source --dest_dir="$install_dir"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.13.6.tar.gz"
-        sha256 = "ddf8169a0a9bd06db10bf032a2b9af7ea4e5816251e82d9e7627f87eba1f27bd"
-        autoupdate.strategy = "latest_github_tag"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/acc5524cf361d6abf3aedb73bb54ef3db1b6fda3.tar.gz"
+        sha256 = "52cbd6aa890deee4079463c0f45bb2985891f78114ecbbfacb5387fdc0b806f5"
+        autoupdate.strategy = "latest_github_commit"
 
     # This will provision/deprovision a unix system user
     [resources.system_user]
@@ -68,13 +66,14 @@ ram.runtime = "50M"
     # This will configure SSOwat permission for $domain/$path/
     # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     [resources.permissions]
-    main.url = "/"
+        main.url = "/"
+        main.show_tile = false
 
     # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]
 
     [resources.apt]
-    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4"
+    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4 pkg-config"
 
     # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     [resources.database]
