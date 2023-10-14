@@ -1,7 +1,7 @@
 packaging_format = 2
 
 id = "syncstorage-rs"
-name = "Firefox Sync Storage (new)"
+name = "Firefox SyncStorage"
 
 description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
 description.fr = "New Firefox Sync Storage implemented in Rust."
@@ -11,7 +11,7 @@ version = "0.13.7-20230926~ynh1"
 maintainers = [""]
 
 [upstream]
-license = "MPL 2.0"
+license = "MPL-2.0"
 website = "https://www.mozilla.org/en-GB/firefox/features/sync/"
 admindoc = "https://github.com/mozilla-services/syncstorage-rs/blob/master/docs/config.md"
 code = "https://github.com/mozilla-services/syncstorage-rs"
@@ -21,8 +21,9 @@ fund = "https://donate.mozilla.org/en-GB/"
 yunohost = ">= 11.1.21"
 architectures = "all"
 multi_instance = true
+sso = false
+ldap = false
 
-# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
