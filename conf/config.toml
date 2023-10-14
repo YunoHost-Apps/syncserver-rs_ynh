@@ -21,9 +21,10 @@ syncstorage.limits.max_total_records = 1666 # See issues #298/#333
 tokenserver.database_url = "mysql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME_TOKENSERVER__"
 tokenserver.enabled = true
 tokenserver.node_type = "mysql"
-tokenserver.fxa_email_domain = "api-accounts.stage.mozaws.net"
+
 tokenserver.fxa_metrics_hash_secret = "__SECRET__"
-tokenserver.fxa_oauth_server_url = "https://oauth.stage.mozaws.net"
-tokenserver.fxa_browserid_audience = "https://token.stage.mozaws.net"
-tokenserver.fxa_browserid_issuer = "https://api-accounts.stage.mozaws.net"
-tokenserver.fxa_browserid_server_url = "https://verifier.stage.mozaws.net/v2"
+tokenserver.fxa_email_domain = "api.accounts.firefox.com"
+tokenserver.fxa_oauth_server_url = "https://oauth.accounts.firefox.com"
+tokenserver.fxa_browserid_audience = "https://token.services.mozilla.com"
+tokenserver.fxa_browserid_issuer = "https://api.accounts.firefox.com"
+tokenserver.fxa_browserid_server_url = "https://verifier.accounts.firefox.com/v2"
