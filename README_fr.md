@@ -25,7 +25,6 @@ Ceci est une fausse description des fonctionalités de l'app
 * Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>
 * Documentation officielle de l’admin : <https://github.com/mozilla-services/syncstorage-rs/blob/master/docs/config.md>
 * Dépôt de code officiel de l’app : <https://github.com/mozilla-services/syncstorage-rs>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_syncstorage-rs>
 * Signaler un bug : <https://github.com/YunoHost-Apps/syncstorage-rs_ynh/issues>
 
 ## Informations pour les développeurs
