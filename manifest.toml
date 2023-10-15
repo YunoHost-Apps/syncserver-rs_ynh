@@ -52,8 +52,8 @@ ram.runtime = "50M"
         # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
         #    ynh_setup_source --dest_dir="$install_dir"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/acc5524cf361d6abf3aedb73bb54ef3db1b6fda3.tar.gz"
-        sha256 = "52cbd6aa890deee4079463c0f45bb2985891f78114ecbbfacb5387fdc0b806f5"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/fb701288244daeee18a3ec26c986b6e6a98bb4f8.tar.gz"
+        sha256 = "def2a6d59ed837240fefc36184a5b58f4f2aede656e22b8f4b38a3581d075a19"
         autoupdate.strategy = "latest_github_commit"
 
     # This will provision/deprovision a unix system user
