@@ -16,7 +16,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log" --line_match="Server closing"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -28,8 +28,14 @@ ynh_change_url_nginx_config
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
-# ...
+# Retarget worker nodes
 #=================================================
+
+set +o nounset
+source "${install_dir}/venv/bin/activate"
+set -o nounset
+ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/remove_node.py "https://$old_domain$old_path"
+ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://$new_domain$new_path" 10
 
 #=================================================
 # GENERIC FINALISATION
@@ -38,7 +44,7 @@ ynh_change_url_nginx_config
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT

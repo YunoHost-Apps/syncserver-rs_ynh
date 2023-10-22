@@ -56,9 +56,10 @@ ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 #=================================================
 ynh_script_progression --message="Reloading NGINX web server and $app's service..." --weight=1
 
-# Typically you only have either $app or php-fpm but not both at the same time...
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 ynh_systemd_action --service_name=nginx --action=reload
+
+# Typically you only have either $app or php-fpm but not both at the same time...
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT
