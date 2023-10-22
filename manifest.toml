@@ -1,3 +1,5 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
 packaging_format = 2
 
 id = "syncstorage-rs"
@@ -8,7 +10,7 @@ description.fr = "New Firefox Sync Storage implemented in Rust."
 
 version = "0.13.7-20230926~ynh1"
 
-maintainers = [""]
+maintainers = ["orhtej2"]
 
 [upstream]
 license = "MPL-2.0"
@@ -56,6 +58,7 @@ ram.runtime = "50M"
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/acc5524cf361d6abf3aedb73bb54ef3db1b6fda3.tar.gz"
         sha256 = "52cbd6aa890deee4079463c0f45bb2985891f78114ecbbfacb5387fdc0b806f5"
         autoupdate.strategy = "latest_github_commit"
+        autoupdate.force_version = "0.13.7-%Y.%m.%d"
 
     # This will provision/deprovision a unix system user
     [resources.system_user]
