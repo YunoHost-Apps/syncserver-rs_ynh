@@ -31,11 +31,7 @@ ynh_change_url_nginx_config
 # Retarget worker nodes
 #=================================================
 
-set +o nounset
-source "${install_dir}/venv/bin/activate"
-set -o nounset
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/remove_node.py "https://$old_domain$old_path"
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://$new_domain$new_path" 10
+ynh_mysql_execute_as_root --sql="UPDATE nodes set node='https://$new_domain$new_path' node url='https://$old_domain$old_path'" --database="$db_name_tokenserver";
 
 #=================================================
 # GENERIC FINALISATION
