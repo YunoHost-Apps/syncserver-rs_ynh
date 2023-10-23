@@ -91,6 +91,10 @@ ynh_add_nginx_config
 
 ynh_add_systemd_config
 
+mkdir /var/log/$app
+touch /var/log/$app/$app.log
+chown -R $app: /var/log/$app
+
 yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
 # Use logrotate to manage application logfile(s)
