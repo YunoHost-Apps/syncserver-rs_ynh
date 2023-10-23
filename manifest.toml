@@ -33,18 +33,7 @@ ram.runtime = "50M"
 [install]
     [install.domain]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "domain"
-
-    [install.path]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "path"
-    default = "/syncserver"
-
-    [install.init_main_permission]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
-    type = "group"
-    default = "visitors"
+    type = "domain" 
 
 [resources]
     # See the packaging documentation for the full set
@@ -72,6 +61,8 @@ ram.runtime = "50M"
     [resources.permissions]
         main.url = "/"
         main.show_tile = false
+        main.allowed = "visitors"
+        main.protected = true
 
     # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]
