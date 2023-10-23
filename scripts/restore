@@ -26,8 +26,6 @@ ynh_script_progression --message="Restoring the MySQL database..." --weight=1
 
 ynh_mysql_connect_as --user=$db_user --password=$db_pwd --database=$db_name < ./db.sql
 
-ynh_mysql_connect_as --user=$db_user --password=$db_pwd --database=$db_name < ./db.sql
-
 ynh_script_progression --message="Restoring tokenserver database..." --weight=1
 ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 ynh_mysql_connect_as --user=$db_user --password=$db_pwd --database=$db_name_tokenserver < ./db_tokenserver.sql
@@ -45,6 +43,10 @@ ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
 
 ynh_restore_file --origin_path="/etc/systemd/system/$app.service"
 systemctl enable $app.service --quiet
+
+mkdir /var/log/$app
+touch /var/log/$app/$app.log
+chown -R $app: /var/log/$app
 
 yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
