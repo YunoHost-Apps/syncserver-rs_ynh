@@ -91,7 +91,7 @@ ynh_add_nginx_config
 
 ynh_add_systemd_config
 
-mkdir /var/log/$app
+mkdir -p /var/log/$app
 touch /var/log/$app/$app.log
 chown -R $app: /var/log/$app
 
