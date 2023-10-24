@@ -5,9 +5,9 @@ It shall NOT be edited by hand.
 
 # Firefox SyncStorage for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/syncstorage-rs.svg)](https://dash.yunohost.org/appci/app/syncstorage-rs) ![Working status](https://ci-apps.yunohost.org/ci/badges/syncstorage-rs.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/syncstorage-rs.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://dash.yunohost.org/appci/app/syncserver-rs) ![Working status](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
 
-[![Install Firefox SyncStorage with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncstorage-rs)
+[![Install Firefox SyncStorage with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
@@ -25,18 +25,18 @@ Second-generation server for Firefox Sync written in Rust.
 * Official app website: <https://www.mozilla.org/en-GB/firefox/features/sync/>
 * Official admin documentation: <https://github.com/mozilla-services/syncstorage-rs/blob/master/docs/config.md>
 * Upstream app code repository: <https://github.com/mozilla-services/syncstorage-rs>
-* Report a bug: <https://github.com/YunoHost-Apps/syncstorage-rs_ynh/issues>
+* Report a bug: <https://github.com/YunoHost-Apps/syncserver-rs_ynh/issues>
 
 ## Developer info
 
-Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/syncstorage-rs_ynh/tree/testing).
+Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/syncserver-rs_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
 
 ``` bash
-sudo yunohost app install https://github.com/YunoHost-Apps/syncstorage-rs_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/syncserver-rs_ynh/tree/testing --debug
 or
-sudo yunohost app upgrade syncstorage-rs -u https://github.com/YunoHost-Apps/syncstorage-rs_ynh/tree/testing --debug
+sudo yunohost app upgrade syncserver-rs -u https://github.com/YunoHost-Apps/syncserver-rs_ynh/tree/testing --debug
 ```
 
 **More info regarding app packaging:** <https://yunohost.org/packaging_apps>
