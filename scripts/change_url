@@ -16,7 +16,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Stopping a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log" --line_match="Server closing"
+ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # MODIFY URL IN NGINX CONF
@@ -28,10 +28,8 @@ ynh_change_url_nginx_config
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
-# Retarget worker nodes
+# ...
 #=================================================
-
-ynh_mysql_execute_as_root --sql="UPDATE nodes set node='https://$new_domain' WHERE node='https://$old_domain'" --database="$db_name_tokenserver";
 
 #=================================================
 # GENERIC FINALISATION
@@ -40,7 +38,7 @@ ynh_mysql_execute_as_root --sql="UPDATE nodes set node='https://$new_domain' WHE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Server running on http://127.0.0.1"
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 
 #=================================================
 # END OF SCRIPT

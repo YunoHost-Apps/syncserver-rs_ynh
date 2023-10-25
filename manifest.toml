@@ -1,19 +1,17 @@
-#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
-
 packaging_format = 2
 
-id = "syncserver-rs"
-name = "Firefox SyncStorage"
+id = "syncstorage-rs"
+name = "Firefox Sync Storage (new)"
 
 description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
 description.fr = "New Firefox Sync Storage implemented in Rust."
 
 version = "0.13.7-20230926~ynh1"
 
-maintainers = ["orhtej2"]
+maintainers = [""]
 
 [upstream]
-license = "MPL-2.0"
+license = "MPL 2.0"
 website = "https://www.mozilla.org/en-GB/firefox/features/sync/"
 admindoc = "https://github.com/mozilla-services/syncstorage-rs/blob/master/docs/config.md"
 code = "https://github.com/mozilla-services/syncstorage-rs"
@@ -23,9 +21,8 @@ fund = "https://donate.mozilla.org/en-GB/"
 yunohost = ">= 11.1.21"
 architectures = "all"
 multi_instance = true
-sso = false
-ldap = false
 
+# FIXME: replace with an **estimate** minimum disk and RAM requirements. e.g. 20M, 400M, 1G... You may have have a look at CI results
 disk = "50M"
 ram.build = "50M"
 ram.runtime = "50M"
@@ -33,7 +30,18 @@ ram.runtime = "50M"
 [install]
     [install.domain]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "domain" 
+    type = "domain"
+
+    [install.path]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "path"
+    default = "/syncserver"
+
+    [install.init_main_permission]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    # This won't be saved as setting and will instead be used to initialize the SSOwat permission
+    type = "group"
+    default = "visitors"
 
 [resources]
     # See the packaging documentation for the full set
@@ -47,7 +55,6 @@ ram.runtime = "50M"
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/acc5524cf361d6abf3aedb73bb54ef3db1b6fda3.tar.gz"
         sha256 = "52cbd6aa890deee4079463c0f45bb2985891f78114ecbbfacb5387fdc0b806f5"
         autoupdate.strategy = "latest_github_commit"
-        autoupdate.force_version = "0.13.7-%Y%m%d"
 
     # This will provision/deprovision a unix system user
     [resources.system_user]
@@ -61,14 +68,12 @@ ram.runtime = "50M"
     [resources.permissions]
         main.url = "/"
         main.show_tile = false
-        main.allowed = "visitors"
-        main.protected = true
 
     # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]
 
     [resources.apt]
-    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4 pkg-config python3-venv"
+    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4 pkg-config"
 
     # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     [resources.database]

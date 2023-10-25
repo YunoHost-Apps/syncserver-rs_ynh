@@ -14,15 +14,12 @@ source /usr/share/yunohost/helpers
 secret=$(ynh_string_random --length=40)
 master_secret=$(ynh_string_random --length=40)
 db_name_tokenserver="${db_name}_tokenserver"
-
 ynh_app_setting_set --app=$app --key=db_name_tokenserver --value=$db_name_tokenserver
-ynh_app_setting_set --app=$app --key=secret --value=$secret
-ynh_app_setting_set --app=$app --key=master_secret --value=$master_secret
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=5
+ynh_script_progression --message="Installing dependencies..." --weight=10
 
 ynh_exec_warn_less ynh_exec_as $app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
 export PATH="$install_dir/.cargo/bin:$PATH"
@@ -101,7 +98,7 @@ ynh_add_nginx_config
 # Create a dedicated systemd config
 ynh_add_systemd_config
 
-mkdir -p /var/log/$app
+mkdir /var/log/$app
 touch /var/log/$app/$app.log
 chown -R $app: /var/log/$app
 
@@ -110,6 +107,8 @@ yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var
 # Use logrotate to manage application logfile(s)
 ynh_use_logrotate
 
+# Create a dedicated Fail2Ban config
+#ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex=""
 #=================================================
 # APP INITIAL CONFIGURATION
 #=================================================
@@ -133,8 +132,7 @@ chown $app:$app "$install_dir/config.toml"
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
 # Start a systemd service
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Server running on http://127.0.0.1"
-
+ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log"
 #=================================================
 # END OF SCRIPT
 #=================================================
