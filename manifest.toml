@@ -46,8 +46,7 @@ ram.runtime = "50M"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/59283b5977a5d997c1292eb5392f6ad252855c0d.tar.gz"
         sha256 = "63f0da2069f70c7e579cb1e0389644969eb394b4ae14e2068f4026ffe88c15be"
-        autoupdate.strategy = "latest_github_commit"
-        autoupdate.force_version = "0.13.7-%Y%m%d"
+        autoupdate.strategy = "latest_github_tag" 
 
     # This will provision/deprovision a unix system user
     [resources.system_user]
