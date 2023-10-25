@@ -13,7 +13,7 @@ StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
 Environment=PATH="__INSTALL_DIR__/venv/bin:$(PATH)"
 Environment=PYTHONPATH=$(PYTHON_SITE_PACKGES)
-Environment=RUST_LOG=error
+Environment=RUST_LOG=info
 Environment=RUST_BACKTRACE=full
 
 # Sandboxing options to harden security
