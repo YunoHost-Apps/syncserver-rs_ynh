@@ -28,10 +28,10 @@ ynh_change_url_nginx_config
 #=================================================
 # SPECIFIC MODIFICATIONS
 #=================================================
-# Retarget worker nodes
+# UPDATE NODE URL
 #=================================================
 
-ynh_mysql_execute_as_root --sql="UPDATE nodes set node='https://$new_domain' WHERE node='https://$old_domain'" --database="$db_name_tokenserver";
+ynh_mysql_execute_as_root --sql="UPDATE nodes set node='https://$new_domain${new_path%%+(/)}' WHERE node='https://$old_domain${old_path%%+(/)}'" --database="$db_name_tokenserver";
 
 #=================================================
 # GENERIC FINALISATION

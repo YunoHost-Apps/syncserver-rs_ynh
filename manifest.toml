@@ -35,6 +35,11 @@ ram.runtime = "50M"
     # this is a generic question - ask strings are automatically handled by YunoHost's core
     type = "domain" 
 
+    [install.path]
+    # this is a generic question - ask strings are automatically handled by YunoHost's core
+    type = "path"
+    default = "/syncserver"
+
 [resources]
     # See the packaging documentation for the full set
     # of explanation regarding the behavior and properties for each of those
