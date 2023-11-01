@@ -1,1 +1,1 @@
-Please open `about:config` in your Firefox and point `identity.sync.tokenserver.uri` to `__DOMAIN____PATH__`.
+Please open `about:config` in your Firefox and point `identity.sync.tokenserver.uri` to `https://__DOMAIN__/1.0/sync/1.5`.
