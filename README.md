@@ -19,7 +19,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Shipped version:** 0.14.2~ynh1
+**Shipped version:** 0.14.3~ynh1
 ## Documentation and resources
 
 * Official app website: <https://www.mozilla.org/en-GB/firefox/features/sync/>
