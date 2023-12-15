@@ -6,7 +6,6 @@ id = "syncserver-rs"
 name = "Firefox SyncStorage"
 
 description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
-description.fr = "New Firefox Sync Storage implemented in Rust."
 
 version = "0.14.4~ynh1"
 
