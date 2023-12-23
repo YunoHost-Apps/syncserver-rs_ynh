@@ -1,0 +1,1 @@
+Serveur de seconde génération pour Firefox Sync écrit en Rust.
