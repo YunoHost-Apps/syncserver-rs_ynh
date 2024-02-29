@@ -18,7 +18,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 
 Serveur de seconde génération pour Firefox Sync écrit en Rust.
 
-**Version incluse :** 0.15.0~ynh1
+**Version incluse :** 0.15.1~ynh1
 ## Documentations et ressources
 
 * Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>
