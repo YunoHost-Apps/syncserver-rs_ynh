@@ -7,7 +7,7 @@ name = "Firefox SyncStorage"
 
 description.en = "New Firefox Sync Storage implemented in Rust. Allows syncing tabs, passwords, history etc. between Firefox instances."
 
-version = "0.15.6~ynh1"
+version = "0.15.7~ynh1"
 
 maintainers = ["orhtej2"]
 
@@ -43,8 +43,8 @@ ram.runtime = "50M"
         # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
         #    ynh_setup_source --dest_dir="$install_dir"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.15.6.tar.gz"
-        sha256 = "cb1f8fa5e958cfc985519f222c9aa7cadb60e2cef316491ce0a71a24bc172798"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.15.7.tar.gz"
+        sha256 = "f8629c474ff96909cf34a763957cab799b71cc26e400cd599460a73a86eb4cbb"
         autoupdate.strategy = "latest_github_tag" 
 
     # This will provision/deprovision a unix system user
