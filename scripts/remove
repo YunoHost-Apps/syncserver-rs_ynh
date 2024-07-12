@@ -28,7 +28,6 @@ ynh_remove_nginx_config
 
 ynh_remove_logrotate
 
-ynh_secure_remove --file="/var/log/$app"
 
 #=================================================
 # DROP TOKENSERVER DB
