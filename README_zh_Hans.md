@@ -19,7 +19,7 @@
 Second-generation server for Firefox Sync written in Rust.
 
 
-**分发版本：** 0.17.1~ynh1
+**分发版本：** 0.17.2~ynh1
 ## 文档与资源
 
 - 官方应用网站： <https://www.mozilla.org/en-GB/firefox/features/sync/>
