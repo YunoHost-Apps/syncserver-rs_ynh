@@ -19,7 +19,7 @@ No se debe editar a mano.
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Versión actual:** 0.17.4~ynh1
+**Versión actual:** 0.17.5~ynh1
 ## Documentaciones y recursos
 
 - Sitio web oficial: <https://www.mozilla.org/en-GB/firefox/features/sync/>
@@ -30,7 +30,7 @@ Second-generation server for Firefox Sync written in Rust.
 
 ## Información para desarrolladores
 
-Por favor enviar sus correcciones a la [`branch testing`](https://github.com/YunoHost-Apps/syncserver-rs_ynh/tree/testing
+Por favor enviar sus correcciones a la [rama `testing`](https://github.com/YunoHost-Apps/syncserver-rs_ynh/tree/testing).
 
 Para probar la rama `testing`, sigue asÍ:
 
