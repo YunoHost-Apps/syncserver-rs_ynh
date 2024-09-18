@@ -41,7 +41,7 @@ ynh_print_info "Backing up the mysql database..."
 ### copy of the generated dump to the archive still happens later)
 
 ynh_mysql_dump_db > db.sql
-ynh_mysql_dump_db _tokenserver" > db_tokenserver.sql
+ynh_mysql_dump_db "$db_name_tokenserver" > db_tokenserver.sql
 
 #=================================================
 # END OF SCRIPT

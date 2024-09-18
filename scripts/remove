@@ -27,7 +27,6 @@ ynh_config_remove_logrotate
 # DROP TOKENSERVER DB
 #=================================================
 ynh_script_progression "Deprovisioning TokenServer DB..."
-db_name_tokenserver=$(ynh_app_setting_get --key=db_name_tokenserver)
 
 ynh_mysql_drop_db "$db_name_tokenserver"
 

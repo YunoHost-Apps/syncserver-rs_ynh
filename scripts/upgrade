@@ -25,19 +25,11 @@ ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-defau
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-# FIXME: this is still supported but the recommendation is now to *always* re-setup the app sources wether or not the upstream sources changed
-if ynh_app_upstream_version_changed
-then
-	ynh_script_progression "Upgrading source files..."
+ynh_script_progression "Upgrading source files..."
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir/build"
-fi
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir/build"
 
-# $install_dir will automatically be initialized with some decent
-# permission by default ... however, you may need to recursively reapply
-# ownership to all files such as after the ynh_setup_source step
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # BUILD
 #=================================================
@@ -79,16 +71,12 @@ ynh_script_progression "Upgrading system configurations related to $app..."
 # This should be a literal copypasta of what happened in the install's "System configuration" section
 ynh_config_add_nginx
 
-ynh_config_add_systemd
-
-mkdir -p /var/log/$app
-touch /var/log/$app/$app.log
-#REMOVEME? Assuming ynh_config_add_logrotate is called, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app: /var/log/$app
-
-yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
-
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
+
+ynh_config_add_systemd
+
+yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
 #=================================================
 # RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
@@ -98,12 +86,6 @@ ynh_config_add_logrotate
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="config.toml" --destination="$install_dir/config.toml"
-
-# FIXME: this should be handled by the core in the future
-# You may need to use chmod 600 instead of 400,
-# for example if the app is expected to be able to modify its own config
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/config.toml"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/config.toml"
 
 #=================================================
 # START SYSTEMD SERVICE

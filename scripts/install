@@ -1,8 +1,5 @@
 #!/bin/bash
-#### App file generated with YoloGen, the Yunohost app generator, version 0.6.5.
-# This is the tutorial version of the app.
-# It contains extra commands to explain what should be done in case you want to adjust some part of the script.
-# Once you are done, you may remove them.
+
 source _common.sh
 source /usr/share/yunohost/helpers
 
@@ -30,16 +27,8 @@ ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-defau
 #=================================================
 ynh_script_progression "Setting up source files..."
 
-### `ynh_setup_source` is used to install an app from a zip or tar.gz file,
-### downloaded from an upstream source, like a git repository.
-### `ynh_setup_source` use the file conf/app.src
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir/build"
 
-# $install_dir will automatically be initialized with some decent
-# permission by default ... however, you may need to recursively reapply
-# ownership to all files such as after the ynh_setup_source step
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
 #=================================================
 # PROVISION SECOND DB
 #=================================================
@@ -73,7 +62,7 @@ ynh_exec_as_app python -m venv "${install_dir}/venv"
 		# tokenserver db
 		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-		ynh_mysql_db_shell <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" _tokenserver";
+		ynh_mysql_db_shell "$db_name_tokenserver" <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')";
 
 		ynh_hide_warnings ynh_exec_as_app PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://${domain%%+(/)}" 10
     popd
@@ -95,14 +84,10 @@ ynh_config_add_nginx
 # Create a dedicated systemd config
 ynh_config_add_systemd
 
-mkdir -p /var/log/$app
-touch /var/log/$app/$app.log
-#REMOVEME? Assuming ynh_config_add_logrotate is called, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app: /var/log/$app
-
-yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
-
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
+
+yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
 #=================================================
 # APP INITIAL CONFIGURATION
@@ -112,12 +97,6 @@ ynh_config_add_logrotate
 ynh_script_progression "Adding $app's configuration..."
 
 ynh_config_add --template="config.toml" --destination="$install_dir/config.toml"
-
-# FIXME: this should be handled by the core in the future
-# You may need to use chmod 600 instead of 400,
-# for example if the app is expected to be able to modify its own config
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/config.toml"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/config.toml"
 
 #=================================================
 # START SYSTEMD SERVICE
