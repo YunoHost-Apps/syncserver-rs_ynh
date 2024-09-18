@@ -18,7 +18,7 @@ Il NE doit PAS être modifié à la main.
 
 Serveur de seconde génération pour Firefox Sync écrit en Rust.
 
-**Version incluse :** 0.17.5~ynh1
+**Version incluse :** 0.17.6~ynh1
 ## Documentations et ressources
 
 - Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>
