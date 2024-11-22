@@ -19,7 +19,7 @@ Ini TIDAK boleh diedit dengan tangan.
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Versi terkirim:** 0.17.13~ynh2
+**Versi terkirim:** 0.17.15~ynh1
 ## Dokumentasi dan sumber daya
 
 - Website aplikasi resmi: <https://www.mozilla.org/en-GB/firefox/features/sync/>
