@@ -5,7 +5,9 @@ NON debe editarse manualmente.
 
 # Firefox SyncStorage para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/syncserver-rs)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![Instalar Firefox SyncStorage con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -19,7 +21,7 @@ NON debe editarse manualmente.
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Versión proporcionada:** 0.17.15~ynh1
+**Versión proporcionada:** 0.18.1~ynh1
 ## Documentación e recursos
 
 - Web oficial da app: <https://www.mozilla.org/en-GB/firefox/features/sync/>
