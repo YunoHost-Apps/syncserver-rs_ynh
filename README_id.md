@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Firefox SyncStorage untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![Status kerja](https://apps.yunohost.org/badge/state/syncserver-rs)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![Pasang Firefox SyncStorage dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -19,7 +21,7 @@ Ini TIDAK boleh diedit dengan tangan.
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Versi terkirim:** 0.17.15~ynh1
+**Versi terkirim:** 0.18.1~ynh1
 ## Dokumentasi dan sumber daya
 
 - Website aplikasi resmi: <https://www.mozilla.org/en-GB/firefox/features/sync/>

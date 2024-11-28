@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Firefox SyncStorage
 
-[![集成程度](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![工作状态](https://apps.yunohost.org/badge/state/syncserver-rs)
+![维护状态](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![使用 YunoHost 安装 Firefox SyncStorage](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -19,7 +21,7 @@
 Second-generation server for Firefox Sync written in Rust.
 
 
-**分发版本：** 0.17.15~ynh1
+**分发版本：** 0.18.1~ynh1
 ## 文档与资源
 
 - 官方应用网站： <https://www.mozilla.org/en-GB/firefox/features/sync/>
