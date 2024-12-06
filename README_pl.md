@@ -21,7 +21,7 @@ Nie powinno być ono edytowane ręcznie.
 Second-generation server for Firefox Sync written in Rust.
 
 
-**Dostarczona wersja:** 0.18.1~ynh1
+**Dostarczona wersja:** 0.18.2~ynh1
 ## Dokumentacja i zasoby
 
 - Oficjalna strona aplikacji: <https://www.mozilla.org/en-GB/firefox/features/sync/>
