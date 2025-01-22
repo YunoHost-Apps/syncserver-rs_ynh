@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Keep this path for calling _common.sh inside the execution's context of backup and restore scripts
 source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
@@ -18,17 +17,7 @@ ynh_backup "$install_dir"
 
 ynh_backup "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-#=================================================
-# SPECIFIC BACKUP
-#=================================================
-# BACKUP LOGROTATE
-#=================================================
-
 ynh_backup "/etc/logrotate.d/$app"
-
-#=================================================
-# BACKUP SYSTEMD
-#=================================================
 
 ynh_backup "/etc/systemd/system/$app.service"
 
@@ -36,9 +25,6 @@ ynh_backup "/etc/systemd/system/$app.service"
 # BACKUP THE DATABASE
 #=================================================
 ynh_print_info "Backing up the mysql database..."
-
-### (However, things like MySQL dumps *do* take some time to run, though the
-### copy of the generated dump to the archive still happens later)
 
 ynh_mysql_dump_db > db.sql
 ynh_mysql_dump_db "$db_name_tokenserver" > db_tokenserver.sql

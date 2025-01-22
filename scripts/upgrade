@@ -20,8 +20,6 @@ export PATH="$install_dir/.cargo/bin:$PATH"
 ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
 
 #=================================================
-# "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
@@ -33,7 +31,6 @@ ynh_setup_source --dest_dir="$install_dir/build"
 #=================================================
 # BUILD
 #=================================================
-
 ynh_script_progression "Building the sources (it will take some time)..."
 
 ynh_exec_as_app python -m venv "${install_dir}/venv"
@@ -68,18 +65,14 @@ ynh_safe_rm "$install_dir/build"
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
 
-# This should be a literal copypasta of what happened in the install's "System configuration" section
 ynh_config_add_nginx
 
-# Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
 
 ynh_config_add_systemd
 
 yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
-#=================================================
-# RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================

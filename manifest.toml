@@ -20,10 +20,11 @@ code = "https://github.com/mozilla-services/syncstorage-rs"
 fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
-yunohost = ">= 11.2.18"
+yunohost = ">= 12.0.9"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 sso = false
 ldap = false
 
@@ -34,7 +35,7 @@ ram.runtime = "50M"
 [install]
     [install.domain]
     # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "domain" 
+    type = "domain"
 
 [resources]
     # See the packaging documentation for the full set
@@ -47,7 +48,7 @@ ram.runtime = "50M"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.18.2.tar.gz"
         sha256 = "901c3ef6296ba36300f44d56317769c81c87f756ab0f8e5c2ebb7049135a5f4c"
-        autoupdate.strategy = "latest_github_tag" 
+        autoupdate.strategy = "latest_github_tag"
 
     # This will provision/deprovision a unix system user
     [resources.system_user]
