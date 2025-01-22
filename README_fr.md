@@ -5,7 +5,9 @@ Il NE doit PAS être modifié à la main.
 
 # Firefox SyncStorage pour YunoHost
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![Niveau d’intégration](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![Statut du fonctionnement](https://apps.yunohost.org/badge/state/syncserver-rs)
+![Statut de maintenance](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![Installer Firefox SyncStorage avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -16,9 +18,10 @@ Il NE doit PAS être modifié à la main.
 
 ## Vue d’ensemble
 
-Serveur de seconde génération pour Firefox Sync écrit en Rust.
+« Firefox Sync » est une fonction de synchronisation de navigateur disponible dans Firefox. Elle permet de synchroniser les signets, l'historique de navigation, les préférences, les mots de passe, les formulaires remplis, les extensions et les derniers onglets ouverts entre plusieurs ordinateurs. Cette fonction s'appuie traditionnellement sur les serveurs de synchronisation de Mozilla (bien que les données soient chiffrées). Cette application propose de mettre en place votre propre serveur de synchronisation pour ne pas dépendre d'une infrastructure tiers.
 
-**Version incluse :** 0.17.8~ynh1
+
+**Version incluse :** 0.18.2~ynh1
 ## Documentations et ressources
 
 - Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>

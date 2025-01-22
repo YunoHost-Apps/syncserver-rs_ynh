@@ -5,7 +5,9 @@
 
 # YunoHost 上的 Firefox SyncStorage
 
-[![集成程度](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![工作状态](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![集成程度](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![工作状态](https://apps.yunohost.org/badge/state/syncserver-rs)
+![维护状态](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![使用 YunoHost 安装 Firefox SyncStorage](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -16,10 +18,10 @@
 
 ## 概况
 
-Second-generation server for Firefox Sync written in Rust.
+"Firefox Sync" is a browser synchronization feature available in Firefox. It allows to synchronize bookmarks, browsing history, preferences, passwords, filled forms, add-ons, and the last opened tabs across multiple computers. This traditionally relies on Mozilla's synchronization servers (though data are encrypted). Using this app, you can synchronize your Firefox instances using your own synchronization server.
 
 
-**分发版本：** 0.17.8~ynh1
+**分发版本：** 0.18.2~ynh1
 ## 文档与资源
 
 - 官方应用网站： <https://www.mozilla.org/en-GB/firefox/features/sync/>

@@ -5,7 +5,9 @@ EZ editatu eskuz.
 
 # Firefox SyncStorage YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/syncserver-rs.svg)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/syncserver-rs.maintain.svg)
+[![Integrazio maila](https://apps.yunohost.org/badge/integration/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
+![Funtzionamendu egoera](https://apps.yunohost.org/badge/state/syncserver-rs)
+![Mantentze egoera](https://apps.yunohost.org/badge/maintained/syncserver-rs)
 
 [![Instalatu Firefox SyncStorage YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=syncserver-rs)
 
@@ -16,10 +18,10 @@ EZ editatu eskuz.
 
 ## Aurreikuspena
 
-Second-generation server for Firefox Sync written in Rust.
+"Firefox Sync" is a browser synchronization feature available in Firefox. It allows to synchronize bookmarks, browsing history, preferences, passwords, filled forms, add-ons, and the last opened tabs across multiple computers. This traditionally relies on Mozilla's synchronization servers (though data are encrypted). Using this app, you can synchronize your Firefox instances using your own synchronization server.
 
 
-**Paketatutako bertsioa:** 0.17.8~ynh1
+**Paketatutako bertsioa:** 0.18.2~ynh1
 ## Dokumentazioa eta baliabideak
 
 - Aplikazioaren webgune ofiziala: <https://www.mozilla.org/en-GB/firefox/features/sync/>
