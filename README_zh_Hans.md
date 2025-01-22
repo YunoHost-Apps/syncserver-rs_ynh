@@ -18,10 +18,10 @@
 
 ## 概况
 
-Second-generation server for Firefox Sync written in Rust.
+"Firefox Sync" is a browser synchronization feature available in Firefox. It allows to synchronize bookmarks, browsing history, preferences, passwords, filled forms, add-ons, and the last opened tabs across multiple computers. This traditionally relies on Mozilla's synchronization servers (though data are encrypted). Using this app, you can synchronize your Firefox instances using your own synchronization server.
 
 
-**分发版本：** 0.18.1~ynh1
+**分发版本：** 0.18.2~ynh1
 ## 文档与资源
 
 - 官方应用网站： <https://www.mozilla.org/en-GB/firefox/features/sync/>

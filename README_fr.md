@@ -18,9 +18,10 @@ Il NE doit PAS être modifié à la main.
 
 ## Vue d’ensemble
 
-Serveur de seconde génération pour Firefox Sync écrit en Rust.
+« Firefox Sync » est une fonction de synchronisation de navigateur disponible dans Firefox. Elle permet de synchroniser les signets, l'historique de navigation, les préférences, les mots de passe, les formulaires remplis, les extensions et les derniers onglets ouverts entre plusieurs ordinateurs. Cette fonction s'appuie traditionnellement sur les serveurs de synchronisation de Mozilla (bien que les données soient chiffrées). Cette application propose de mettre en place votre propre serveur de synchronisation pour ne pas dépendre d'une infrastructure tiers.
 
-**Version incluse :** 0.18.1~ynh1
+
+**Version incluse :** 0.18.2~ynh1
 ## Documentations et ressources
 
 - Site officiel de l’app : <https://www.mozilla.org/en-GB/firefox/features/sync/>
