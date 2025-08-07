@@ -59,31 +59,20 @@ ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 
 ynh_script_progression --message="Building the sources (it will take some time)..." --weight=10
 
-ynh_exec_as $app python -m venv "${install_dir}/venv"
-(
-	set +o nounset
-	source "${install_dir}/venv/bin/activate"
-	set -o nounset
+pushd $install_dir/build
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
 
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade pip
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade setuptools
-    pushd $install_dir/build
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -r requirements.txt
-		ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -r tools/tokenserver/requirements.txt
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+	ynh_script_progression --message="Seeding the databases..."
+	# syncstorage db
+	diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
-		ynh_script_progression --message="Seeding the databases..."
-		# syncstorage db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+	# tokenserver db
+	diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-		# tokenserver db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
+	ynh_mysql_execute_as_root --sql="INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" --database="$db_name_tokenserver";
 
-		ynh_mysql_execute_as_root --sql="INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" --database="$db_name_tokenserver";
-
-		ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://${domain%%+(/)}" 10
-    popd
-)
+	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://${domain%%+(/)}" 10
+popd
 
 ynh_secure_remove --file="$install_dir/.cargo"
 ynh_secure_remove --file="$install_dir/.rustup"
