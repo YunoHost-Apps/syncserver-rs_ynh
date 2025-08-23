@@ -54,32 +54,26 @@ chown -R $app:www-data "$install_dir"
 
 ynh_script_progression --message="Building the sources (it will take some time)..." --weight=10
 
-ynh_exec_as $app python -m venv "${install_dir}/venv"
-(
-	set +o nounset
-	source "${install_dir}/venv/bin/activate"
-	set -o nounset
 
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade pip
-	ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install --upgrade setuptools
-    pushd $install_dir/build
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -r requirements.txt
-		ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -r tools/tokenserver/requirements.txt
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+pushd $install_dir/build
+    ynh_script_progression --message="Upgrading the databases..."
+    # syncstorage db
+    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
-		ynh_script_progression --message="Seeding the databases..."
-		# syncstorage db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+    # tokenserver db
+    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-		# tokenserver db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
-    popd
-)
+	ynh_script_progression --message="Building syncserver"
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+popd
+
 
 ynh_secure_remove --file="$install_dir/.cargo"
 ynh_secure_remove --file="$install_dir/.rustup"
 ynh_secure_remove --file="$install_dir/.cache"
+ynh_secure_remove --file="$install_dir/.local"
 ynh_secure_remove --file="$install_dir/build"
+ynh_secure_remove --file="$install_dir/venv"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
