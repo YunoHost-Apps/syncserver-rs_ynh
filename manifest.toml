@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.18.3~ynh1"
+version = "0.19.1~ynh1"
 
 maintainers = ["orhtej2"]
 
@@ -44,8 +44,8 @@ ram.runtime = "50M"
         # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
         #    ynh_setup_source --dest_dir="$install_dir"
         # You can also define other assets than "main" and add --source_id="foobar" in the previous command
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.18.3.tar.gz"
-        sha256 = "496555d4fd4059b9b33b8c20d2742c6eb3a0592188dd0f2da77624ac9856d1b5"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.19.1.tar.gz"
+        sha256 = "e92c6f725e12115959f88523e3b8daa9428131b9894d631a19d42c69a089fb6b"
         autoupdate.strategy = "latest_github_tag" 
 
     # This will provision/deprovision a unix system user
