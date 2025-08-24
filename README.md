@@ -18,15 +18,6 @@ Synchronize tabs, passwords, history etc. between your Firefox instances
 <a href="https://github.com/YunoHost-Apps/syncserver-rs_ynh/issues"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_report_an_issue.svg"/></a>
 </div>
 
-
-## Screenshots
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-01.png)
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-02.png)
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-03.png)
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-04.png)
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-05.png)
-![Screenshot of Firefox SyncStorage](./doc/screenshots/admin-06.png)
-
 ## 📦 Developer info
 
 [![Automatic tests level](https://apps.yunohost.org/badge/cilevel/syncserver-rs)](https://ci-apps.yunohost.org/ci/apps/syncserver-rs/)
