@@ -20,7 +20,7 @@ code = "https://github.com/mozilla-services/syncstorage-rs"
 fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
-yunohost = ">= 11.1.21"
+yunohost = ">= 12.1.17"
 architectures = "all"
 multi_instance = true
 sso = false
@@ -73,3 +73,6 @@ ram.runtime = "50M"
     [resources.database]
         type = "mysql"
     
+
+    [resources.go]
+    version = "1.20"
