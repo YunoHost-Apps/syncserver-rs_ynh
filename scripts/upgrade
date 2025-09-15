@@ -35,13 +35,10 @@ ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-	ynh_script_progression --message="Upgrading source files..." --weight=1
+ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir/build"
-fi
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir/build"
 
 # $install_dir will automatically be initialized with some decent
 # permission by default ... however, you may need to recursively reapply
