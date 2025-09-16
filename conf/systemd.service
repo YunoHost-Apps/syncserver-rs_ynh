@@ -8,11 +8,9 @@ Type=simple
 User=__APP__
 Group=__APP__
 WorkingDirectory=__INSTALL_DIR__
-ExecStart=__INSTALL_DIR__/bin/syncserver --config ./config.toml
+ExecStart=__INSTALL_DIR__/run.sh
 StandardOutput=append:/var/log/__APP__/__APP__.log
 StandardError=inherit
-Environment=RUST_LOG=info
-Environment=RUST_BACKTRACE=full
 
 # Sandboxing options to harden security
 # Depending on specificities of your service/app, you may need to tweak these

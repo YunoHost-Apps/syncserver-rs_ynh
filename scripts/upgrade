@@ -35,13 +35,10 @@ ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 
-if [ "$upgrade_type" == "UPGRADE_APP" ]
-then
-	ynh_script_progression --message="Upgrading source files..." --weight=1
+ynh_script_progression --message="Upgrading source files..." --weight=1
 
-	# Download, check integrity, uncompress and patch the source from app.src
-	ynh_setup_source --dest_dir="$install_dir/build"
-fi
+# Download, check integrity, uncompress and patch the source from app.src
+ynh_setup_source --dest_dir="$install_dir/build"
 
 # $install_dir will automatically be initialized with some decent
 # permission by default ... however, you may need to recursively reapply
@@ -63,8 +60,17 @@ pushd $install_dir/build
     # tokenserver db
     diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+
+    pushd tools/tokenserver
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+    popd
+
+
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
 popd
 
 
@@ -73,7 +79,7 @@ ynh_secure_remove --file="$install_dir/.rustup"
 ynh_secure_remove --file="$install_dir/.cache"
 ynh_secure_remove --file="$install_dir/.local"
 ynh_secure_remove --file="$install_dir/build"
-ynh_secure_remove --file="$install_dir/venv"
+# ynh_secure_remove --file="$install_dir/venv"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
@@ -102,12 +108,12 @@ ynh_use_logrotate
 ynh_script_progression --message="Updating a configuration file..." --weight=1
 
 ynh_add_config --template="config.toml" --destination="$install_dir/config.toml"
-
-# FIXME: this should be handled by the core in the future
-# You may need to use chmod 600 instead of 400,
-# for example if the app is expected to be able to modify its own config
 chmod 400 "$install_dir/config.toml"
 chown $app:$app "$install_dir/config.toml"
+
+ynh_add_config --template="run.sh" --destination="$install_dir/run.sh"
+chmod 700 "$install_dir/run.sh"
+chown $app:$app "$install_dir/run.sh"
 
 #=================================================
 # START SYSTEMD SERVICE
