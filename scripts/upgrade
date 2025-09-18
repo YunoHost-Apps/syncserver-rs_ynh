@@ -31,8 +31,8 @@ ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no
 
 if [ ! -d "${install_dir}/venv" ]; then
     ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install poetry
 fi
+ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
 
 #=================================================
 # "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
