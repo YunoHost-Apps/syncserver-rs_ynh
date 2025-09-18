@@ -29,6 +29,11 @@ ynh_exec_warn_less ynh_exec_as $app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOM
 export PATH="$install_dir/.cargo/bin:$PATH"
 ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
 
+if [ ! -d "${install_dir}/venv" ]; then
+    ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install poetry
+fi
+
 #=================================================
 # "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
 #=================================================
@@ -60,12 +65,12 @@ pushd $install_dir/build
     # tokenserver db
     diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/poetry config virtualenvs.in-project true
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/poetry install
 
     pushd tools/tokenserver
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/poetry install
     popd
 
 
