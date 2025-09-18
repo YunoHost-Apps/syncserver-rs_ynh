@@ -77,7 +77,7 @@ pushd $install_dir/build
 
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 popd
 
 
