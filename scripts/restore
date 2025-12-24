@@ -17,7 +17,6 @@ ynh_script_progression "Restoring the MySQL database..."
 
 ynh_mysql_db_shell < ./db.sql
 
-ynh_script_progression "Restoring tokenserver database..."
 ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 ynh_mysql_db_shell "$db_name_tokenserver" < ./db_tokenserver.sql
 

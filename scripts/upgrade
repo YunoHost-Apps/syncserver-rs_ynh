@@ -22,7 +22,7 @@ ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-defau
 if [ ! -d "${install_dir}/venv" ]; then
     ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
 fi
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
+ynh_hide_warnings ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
@@ -47,18 +47,18 @@ pushd $install_dir/build
     # tokenserver db
     diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
 
     pushd tools/tokenserver
-        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
     popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 popd
 
 ynh_safe_rm "$install_dir/.cargo"

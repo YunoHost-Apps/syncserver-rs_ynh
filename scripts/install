@@ -40,7 +40,7 @@ ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 ynh_script_progression "Building the sources (it will take some time)..."
 
 ynh_exec_as_app python -m venv "${install_dir}/venv" --upgrade-deps
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install poetry
+ynh_hide_warnings ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install poetry
 
 pushd $install_dir/build
     ynh_script_progression --message="Seeding the databases..."
@@ -52,17 +52,17 @@ pushd $install_dir/build
 
     ynh_mysql_execute_as_root --sql="INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" --database="$db_name_tokenserver";
 
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+   ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
 
     pushd tools/tokenserver
-        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
-        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry run python add_node.py "https://${domain%%+(/)}" 10
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry run python add_node.py "https://${domain%%+(/)}" 10
     popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
 popd
 
 ynh_safe_rm "$install_dir/.cargo"
