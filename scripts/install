@@ -37,34 +37,33 @@ ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 #=================================================
 # BUILD
 #=================================================
-
 ynh_script_progression "Building the sources (it will take some time)..."
 
-ynh_exec_as_app python -m venv "${install_dir}/venv"
-(
-	set +o nounset
-	source "${install_dir}/venv/bin/activate"
-	set -o nounset
+ynh_exec_as_app python -m venv "${install_dir}/venv" --upgrade-deps
+ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install poetry
 
-	ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install --upgrade pip
-	ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install --upgrade setuptools
-    pushd $install_dir/build
-        ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install -r requirements.txt
-		ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install -r tools/tokenserver/requirements.txt
-        ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+pushd $install_dir/build
+    ynh_script_progression --message="Seeding the databases..."
+    # syncstorage db
+    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
-		ynh_script_progression "Seeding the databases..."
-		# syncstorage db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+    # tokenserver db
+    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-		# tokenserver db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
+    ynh_mysql_execute_as_root --sql="INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')" --database="$db_name_tokenserver";
 
-		ynh_mysql_db_shell "$db_name_tokenserver" <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}')";
+    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
 
-		ynh_hide_warnings ynh_exec_as_app PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" $install_dir/venv/bin/python tools/tokenserver/add_node.py "https://${domain%%+(/)}" 10
+    pushd tools/tokenserver
+        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+        ynh_exec_warn_less ynh_exec_as_app PATH=$PATH SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry run python add_node.py "https://${domain%%+(/)}" 10
     popd
-)
+
+	ynh_script_progression --message="Building syncserver"
+    ynh_exec_warn_less ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
+popd
 
 ynh_safe_rm "$install_dir/.cargo"
 ynh_safe_rm "$install_dir/.rustup"
@@ -90,7 +89,13 @@ yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
 
-ynh_config_add --template="config.toml" --destination="$install_dir/config.toml"
+ynh_config_add  --template="config.toml" --destination="$install_dir/config.toml"
+chmod 400 "$install_dir/config.toml"
+chown $app:$app "$install_dir/config.toml"
+
+ynh_config_add  --template="run.sh" --destination="$install_dir/run.sh"
+chmod 700 "$install_dir/run.sh"
+chown $app:$app "$install_dir/run.sh"
 
 #=================================================
 # START SYSTEMD SERVICE
