@@ -21,7 +21,7 @@ ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-defau
 if [ ! -d "${install_dir}/venv" ]; then
     ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
 fi
-ynh_hide_warnings ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
+ynh_hide_warnings ynh_exec_as_app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
