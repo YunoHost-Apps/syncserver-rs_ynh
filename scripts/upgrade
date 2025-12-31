@@ -19,7 +19,7 @@ export PATH="$install_dir/.cargo/bin:$PATH"
 ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
 
 if [ ! -d "${install_dir}/venv" ]; then
-    ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
+    ynh_exec_as_app python -m venv "${install_dir}/venv" --upgrade-deps
 fi
 ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install -U poetry
 
