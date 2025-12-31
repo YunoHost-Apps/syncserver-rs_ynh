@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
@@ -8,7 +7,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemctl --service=$app --action="stop"  --wait_until="Server closing"
+ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 
 #=================================================
 # INSTALL DEPENDENCIES
@@ -58,7 +57,7 @@ pushd $install_dir/build
     popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 popd
 
 ynh_safe_rm "$install_dir/.cargo"
@@ -85,8 +84,6 @@ yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var
 ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="config.toml" --destination="$install_dir/config.toml"
-chmod 400 "$install_dir/config.toml"
-chown $app:$app "$install_dir/config.toml"
 
 ynh_config_add --template="run.sh" --destination="$install_dir/run.sh"
 chmod 700 "$install_dir/run.sh"
@@ -97,7 +94,7 @@ chown $app:$app "$install_dir/run.sh"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start"  --wait_until="Server running on http://127.0.0.1"
+ynh_systemctl --service=$app --action="start"  #--wait_until="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT

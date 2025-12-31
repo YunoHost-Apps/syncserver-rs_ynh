@@ -1,6 +1,5 @@
 #!/bin/bash
 
-source _common.sh
 source /usr/share/yunohost/helpers
 
 secret=$(ynh_string_random --length=40)
@@ -30,8 +29,8 @@ ynh_setup_source --dest_dir="$install_dir/build"
 #=================================================
 # PROVISION SECOND DB
 #=================================================
-
 ynh_script_progression "Configuring second MySQL database..."
+
 ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 
 #=================================================
@@ -62,7 +61,7 @@ pushd $install_dir/build
     popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir --no-default-features --features=syncstorage-db/mysql --features=py_verifier
 popd
 
 ynh_safe_rm "$install_dir/.cargo"
@@ -90,8 +89,6 @@ yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var
 ynh_script_progression "Adding $app's configuration..."
 
 ynh_config_add  --template="config.toml" --destination="$install_dir/config.toml"
-chmod 400 "$install_dir/config.toml"
-chown $app:$app "$install_dir/config.toml"
 
 ynh_config_add  --template="run.sh" --destination="$install_dir/run.sh"
 chmod 700 "$install_dir/run.sh"
@@ -102,9 +99,10 @@ chown $app:$app "$install_dir/run.sh"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start"  --wait_until="Server running on http://127.0.0.1"
+ynh_systemctl --service=$app --action="start"  #--wait_until="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
+
 ynh_script_progression "Installation of $app completed"
