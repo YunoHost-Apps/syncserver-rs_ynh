@@ -1,61 +1,42 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
-source _common.sh
 source /usr/share/yunohost/helpers
 
-upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# STANDARD UPGRADE STEPS
 #=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..." --weight=1
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="stop" --log_path="/var/log/$app/$app.log" --line_match="Server closing"
+ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 
 #=================================================
 # INSTALL DEPENDENCIES
 #=================================================
-ynh_script_progression --message="Installing dependencies..." --weight=5
+ynh_script_progression "Installing dependencies..."
 
-ynh_exec_warn_less ynh_exec_as $app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
+ynh_hide_warnings ynh_exec_as_app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
 export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
+ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
 
 if [ ! -d "${install_dir}/venv" ]; then
-    ynh_exec_as $app python -m venv "${install_dir}/venv" --upgrade-deps
+    ynh_exec_as_app python -m venv "${install_dir}/venv" --upgrade-deps
 fi
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH $install_dir/venv/bin/pip install -U poetry
+ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install -U poetry
 
-#=================================================
-# "REBUILD" THE APP (DEPLOY NEW SOURCES, RERUN NPM BUILD...)
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
-
-ynh_script_progression --message="Upgrading source files..." --weight=1
+ynh_script_progression "Upgrading source files..."
 
 # Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir/build"
 
-# $install_dir will automatically be initialized with some decent
-# permission by default ... however, you may need to recursively reapply
-# ownership to all files such as after the ynh_setup_source step
 chown -R $app:www-data "$install_dir"
 
 #=================================================
 # BUILD
 #=================================================
-
-ynh_script_progression --message="Building the sources (it will take some time)..." --weight=10
-
+ynh_script_progression "Building the sources (it will take some time)..."
 
 pushd $install_dir/build
     ynh_script_progression --message="Upgrading the databases..."
@@ -65,72 +46,58 @@ pushd $install_dir/build
     # tokenserver db
     diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
 
     pushd tools/tokenserver
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-        ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
+        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
     popd
 
-
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
+    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 popd
 
-
-ynh_secure_remove --file="$install_dir/.cargo"
-ynh_secure_remove --file="$install_dir/.rustup"
-ynh_secure_remove --file="$install_dir/.cache"
-ynh_secure_remove --file="$install_dir/.local"
-ynh_secure_remove --file="$install_dir/build"
-# ynh_secure_remove --file="$install_dir/venv"
+ynh_safe_rm "$install_dir/.cargo"
+ynh_safe_rm "$install_dir/.rustup"
+ynh_safe_rm "$install_dir/.cache"
+ynh_safe_rm "$install_dir/build"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
-# This should be a literal copypasta of what happened in the install's "System configuration" section
-ynh_add_nginx_config
+ynh_config_add_nginx
 
-ynh_add_systemd_config
+ynh_config_add_logrotate
 
-mkdir -p /var/log/$app
-touch /var/log/$app/$app.log
-chown -R $app: /var/log/$app
+ynh_config_add_systemd
 
 yunohost service add $app --description="Firefox Sync Server (Rust)" --log="/var/log/$app/$app.log"
 
-# Use logrotate to manage application logfile(s)
-ynh_use_logrotate
-
-#=================================================
-# RECONFIGURE THE APP (UPDATE CONF, APPLY MIGRATIONS...)
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --weight=1
+ynh_script_progression "Updating configuration..."
 
-ynh_add_config --template="config.toml" --destination="$install_dir/config.toml"
-chmod 400 "$install_dir/config.toml"
-chown $app:$app "$install_dir/config.toml"
+ynh_config_add --template="config.toml" --destination="$install_dir/config.toml"
 
-ynh_add_config --template="run.sh" --destination="$install_dir/run.sh"
+ynh_config_add --template="run.sh" --destination="$install_dir/run.sh"
 chmod 700 "$install_dir/run.sh"
 chown $app:$app "$install_dir/run.sh"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name=$app --action="start" --log_path="/var/log/$app/$app.log" --line_match="Server running on http://127.0.0.1"
+ynh_systemctl --service=$app --action="start"  #--wait_until="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"

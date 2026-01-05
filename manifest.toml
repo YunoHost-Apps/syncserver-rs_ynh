@@ -20,9 +20,11 @@ code = "https://github.com/mozilla-services/syncstorage-rs"
 fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
-yunohost = ">= 11.1.21"
+yunohost = ">= 12.1.17"
+helpers_version = "2.1"
 architectures = "all"
 multi_instance = true
+
 sso = false
 ldap = false
 
@@ -32,44 +34,34 @@ ram.runtime = "50M"
 
 [install]
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "domain" 
+    type = "domain"
 
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
+
     [resources.sources]
 
         [resources.sources.main]
-        # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
-        #    ynh_setup_source --dest_dir="$install_dir"
-        # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
         sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
-        autoupdate.strategy = "latest_github_tag" 
+        autoupdate.strategy = "latest_github_tag"
 
-    # This will provision/deprovision a unix system user
     [resources.system_user]
 
-    # This will create/remove the install dir as /var/www/$app
-    # and store the corresponding setting $install_dir
     [resources.install_dir]
 
-    # This will configure SSOwat permission for $domain/$path/
-    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     [resources.permissions]
-        main.url = "/"
-        main.show_tile = false
-        main.allowed = "visitors"
-        main.protected = true
+    main.url = "/"
+    main.show_tile = false
+    main.allowed = "visitors"
+    main.protected = true
 
-    # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]
 
     [resources.apt]
-    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4 pkg-config python3-venv"
+    packages = "mariadb-server, default-libmysqlclient-dev, cmake, python3-dev, python3-pip, python3-setuptools, python3-wheel, build-essential, libssl-dev, libffi-dev, libcurl4, pkg-config, python3-venv"
 
-    # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     [resources.database]
-        type = "mysql"
-    
+    type = "mysql"
+
+    #[resources.go]
+    #version = "1.20"
