@@ -14,22 +14,20 @@ ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 #=================================================
 ynh_script_progression "Installing dependencies..."
 
-ynh_hide_warnings ynh_exec_as_app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
+ynh_hide_warnings ynh_exec_as_app \
+	RUSTUP_HOME="$install_dir/.rustup" \
+	CARGO_HOME="$install_dir/.cargo" \
+	bash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y"
 export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
-
-ynh_exec_as_app python -m venv "${install_dir}/venv" --upgrade-deps
-
-ynh_hide_warnings ynh_exec_as_app PATH=$PATH $install_dir/venv/bin/pip install -U poetry
+ynh_hide_warnings ynh_exec_as_app \
+	cargo install diesel_cli --no-default-features --features 'mysql'
 
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-# Download, check integrity, uncompress and patch the source from app.src
 ynh_setup_source --dest_dir="$install_dir/build"
-
 chown -R $app:www-data "$install_dir"
 
 #=================================================
@@ -37,26 +35,42 @@ chown -R $app:www-data "$install_dir"
 #=================================================
 ynh_script_progression "Building the sources (it will take some time)..."
 
-pushd $install_dir/build
-    ynh_script_progression --message="Upgrading the databases..."
-    # syncstorage db
-    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+ynh_exec_as_app python -m venv "$install_dir/venv" --upgrade-deps
+ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
 
-    # tokenserver db
-    diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
+pushd "$install_dir/build"
+	ynh_script_progression --message="Upgrading the databases..."
+	# syncstorage db
+	diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
+	# tokenserver db
+	diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 
-    pushd tools/tokenserver
-        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry config virtualenvs.in-project true
-        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry env use $install_dir/venv/bin/python
-        ynh_hide_warnings ynh_exec_as_app PATH=$PATH VIRTUAL_ENV=$install_dir/venv $install_dir/venv/bin/poetry install
-    popd
+	ynh_hide_warnings ynh_exec_as_app \
+		VIRTUAL_ENV="$install_dir/venv" \
+		"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
+	ynh_hide_warnings ynh_exec_as_app \
+		VIRTUAL_ENV="$install_dir/venv" \
+		"$install_dir/venv/bin/poetry" env use "$install_dir/venv/bin/python"
+	ynh_hide_warnings ynh_exec_as_app \
+		VIRTUAL_ENV="$install_dir/venv" \
+		"$install_dir/venv/bin/poetry" install
+
+	pushd "tools/tokenserver"
+		ynh_hide_warnings ynh_exec_as_app \
+			VIRTUAL_ENV="$install_dir/venv" \
+			"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
+		ynh_hide_warnings ynh_exec_as_app \
+			VIRTUAL_ENV="$install_dir/venv" \
+			"$install_dir/venv/bin/poetry" env use "$install_dir/venv/bin/python"
+		ynh_hide_warnings ynh_exec_as_app \
+			VIRTUAL_ENV="$install_dir/venv" \
+			"$install_dir/venv/bin/poetry" install
+	popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_hide_warnings ynh_exec_as_app PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
+	ynh_hide_warnings ynh_exec_as_app \
+		cargo install --path ./syncserver --locked --root "$install_dir" --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 popd
 
 ynh_safe_rm "$install_dir/.cargo"
@@ -93,7 +107,7 @@ chown $app:$app "$install_dir/run.sh"
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start"  #--wait_until="Server running on http://127.0.0.1"
+ynh_systemctl --service=$app --action="start" #--wait_until="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT
