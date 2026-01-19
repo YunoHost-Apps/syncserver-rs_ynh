@@ -13,15 +13,19 @@ myynh_build() {
 	ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
 
 	pushd "$install_dir/build"
-		ynh_script_progression "Seeding the databases..."
+		ynh_print_info "Seeding the databases..."
 		# syncstorage db
 		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
 		# tokenserver db
 		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
+		# Add a service in tokenserver-db on install only
+		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]]
+		then
+			ynh_mysql_db_shell "$db_name_tokenserver" <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}');"
+		fi
 
-		ynh_mysql_db_shell "$db_name_tokenserver" <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}');"
-
+		ynh_print_info "Preparing the syncserver sources"
 		ynh_hide_warnings ynh_exec_as_app \
 			VIRTUAL_ENV="$install_dir/venv" \
 			"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
@@ -33,6 +37,7 @@ myynh_build() {
 			"$install_dir/venv/bin/poetry" install
 
 		pushd "tools/tokenserver"
+			ynh_print_info "Preparing the tokenserver sources"
 			ynh_hide_warnings ynh_exec_as_app \
 				VIRTUAL_ENV="$install_dir/venv" \
 				"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
@@ -52,7 +57,7 @@ myynh_build() {
 			fi
 		popd
 
-		ynh_script_progression "Building syncserver"
+		ynh_print_info "Building syncserver"
 		ynh_hide_warnings ynh_exec_as_app \
 			cargo install --path ./syncserver --locked --root "$install_dir" --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 	popd
