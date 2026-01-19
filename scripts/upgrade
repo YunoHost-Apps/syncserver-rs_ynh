@@ -88,6 +88,10 @@ ynh_config_add --template="run.sh" --destination="$install_dir/run.sh"
 chmod 700 "$install_dir/run.sh"
 chown $app:$app "$install_dir/run.sh"
 
+ynh_add_config --template="run.sh" --destination="$install_dir/run.sh"
+chmod 700 "$install_dir/run.sh"
+chown $app:$app "$install_dir/run.sh"
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
