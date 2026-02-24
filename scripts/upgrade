@@ -11,24 +11,13 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-ynh_hide_warnings ynh_exec_as_app \
-	RUSTUP_HOME="$install_dir/.rustup" \
-	CARGO_HOME="$install_dir/.cargo" \
-	bash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y"
-export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_hide_warnings ynh_exec_as_app \
-	cargo install diesel_cli --no-default-features --features 'mysql'
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir/build"
+ynh_setup_source --dest_dir="$install_dir"
+ynh_setup_source --dest_dir="$install_dir/build" --source_id="upstream"
+ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
 chown -R $app:www-data "$install_dir"
 
 #=================================================

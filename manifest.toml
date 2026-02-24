@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.21.1.1~ynh1"
+version = "0.21.1~ynh2"
 
 maintainers = ["orhtej2"]
 
@@ -39,8 +39,47 @@ ram.runtime = "50M"
 [resources]
 
     [resources.sources]
-
         [resources.sources.main]
+        amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "e518bb91073fb1d7771c0a61a22ddd9566728786adfce7c4d354afa979e46572"
+        autoupdate.asset.amd64 = "syncserver-\\d+\\(.\\d+)+-x86_64-unknown-linux-gnu.zst"
+        arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "65a9ea41223107683d71d7f80a9b3556ee46d8c3fec4a9a6a89f663305f304ed"
+        autoupdate.asset.arm64 = "syncserver-\\d+\\(.\\d+)+-aarch64-unknown-linux-gnu.zst"
+        armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-armv7-unknown-linux-gnueabihf.zst"
+        autoupdate.asset.armhf = "syncserver-\\d+\\(.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+        i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+        autoupdate.asset.i386 = "syncserver-\\d+\\(.\\d+)+-i686-unknown-linux-gnu.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
+        autoupdate.needs_manual_tweaks = true
+        rename = "syncserver"
+
+
+        [resources.sources.diesel]
+        amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "e518bb91073fb1d7771c0a61a22ddd9566728786adfce7c4d354afa979e46572"
+        autoupdate.asset.amd64 = "diesel_cli-v\\d+\\(.\\d+)+-x86_64-unknown-linux-gnu.zst"
+        arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "5f0707b24c242d732343e1c5779d61846f06d771a030eba457cbac33f6fd19b5"
+        autoupdate.asset.arm64 = "diesel_cli-v\\d+\\(.\\d+)+-aarch64-unknown-linux-gnu.zst"
+        armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-armv7-unknown-linux-gnueabihf.zst"
+        autoupdate.asset.armhf = "diesel_cli-v\\d+\\(.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+        i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+        autoupdate.asset.i386 = "diesel_cli-v\\d+\\(.\\d+)+-i686-unknown-linux-gnu.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
+        autoupdate.needs_manual_tweaks = true
+        rename = "diesel"
+
+
+        [resources.sources.upstream]
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
         sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
         autoupdate.strategy = "latest_github_tag"
