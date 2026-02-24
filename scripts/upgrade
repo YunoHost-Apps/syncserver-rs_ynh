@@ -19,6 +19,9 @@ ynh_setup_source --dest_dir="$install_dir"
 ynh_setup_source --dest_dir="$install_dir/build" --source_id="upstream"
 ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
 chown -R $app:www-data "$install_dir"
+chmod u+x $install_dir/build/diesel
+chmod u+x $install_dir/syncserver
+
 
 #=================================================
 # BUILD
