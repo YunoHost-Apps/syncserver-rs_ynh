@@ -57,6 +57,7 @@ ram.runtime = "50M"
         autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
         autoupdate.needs_manual_tweaks = true
         rename = "syncserver"
+        in_subdir = false
 
 
         [resources.sources.diesel]
@@ -77,6 +78,7 @@ ram.runtime = "50M"
         autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
         autoupdate.needs_manual_tweaks = true
         rename = "diesel"
+        in_subdir = false
 
 
         [resources.sources.upstream]
