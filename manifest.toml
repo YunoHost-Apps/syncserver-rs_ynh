@@ -41,16 +41,19 @@ ram.runtime = "50M"
     [resources.sources]
         [resources.sources.main]
         amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "92cbfc7afa41693f22c48e2854c7d147de1010648757f82f41a7b2898dea8d61"
+        amd64.sha256 = "8b4402bb61080e42cd5e89287d33a5cdcaf7da0c1711d4ede01a05b336d5f8b6"
         autoupdate.asset.amd64 = "syncserver-\\d+\\(.\\d+)+-x86_64-unknown-linux-gnu.zst"
+
         arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "65a9ea41223107683d71d7f80a9b3556ee46d8c3fec4a9a6a89f663305f304ed"
+        arm64.sha256 = "1bec3cf00c72f55db829599183c2ecbc07a6547c86d4d4825534ea1dd6519670"
         autoupdate.asset.arm64 = "syncserver-\\d+\\(.\\d+)+-aarch64-unknown-linux-gnu.zst"
+
         armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "74fd14b824f46ff74d7976b54eca7f3508bcbd27e2a94f14d053d879279ed87e"
+        armhf.sha256 = "a7937dadabf0de09f0bdfd7432e24e0297b018f35215a3a2163567ac72d2eaf1"
         autoupdate.asset.armhf = "syncserver-\\d+\\(.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
+
         i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/syncserver-0.21.1-i686-unknown-linux-gnu.zst"
-        i386.sha256 = "d3a1cc06ae96328b80aeccbdf72f6a79bb68d93e734420ada570e6c2fe8c437f"
+        i386.sha256 = "5aa5cff3245424038e9d2534906ed0f58f67bd6f4a542341ad5732446c8e5ccc"
         autoupdate.asset.i386 = "syncserver-\\d+\\(.\\d+)+-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -62,16 +65,19 @@ ram.runtime = "50M"
 
         [resources.sources.diesel]
         amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "e518bb91073fb1d7771c0a61a22ddd9566728786adfce7c4d354afa979e46572"
+        amd64.sha256 = "a024e4d0c56a7a71f86d94830166806aff41e5123acb4a1557134ea2401f068a"
         autoupdate.asset.amd64 = "diesel_cli-v\\d+\\(.\\d+)+-x86_64-unknown-linux-gnu.zst"
+
         arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "5f0707b24c242d732343e1c5779d61846f06d771a030eba457cbac33f6fd19b5"
+        arm64.sha256 = "3ed28a95ef97336b26e75dff534ef9f58898c79f6603add37f40d7f3f93d045a"
         autoupdate.asset.arm64 = "diesel_cli-v\\d+\\(.\\d+)+-aarch64-unknown-linux-gnu.zst"
+
         armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "5fe6b1c3e4e1441b39d1ea8f13c1efac69e5db380a6d949b5c8c39a870580f11"
         autoupdate.asset.armhf = "diesel_cli-v\\d+\\(.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+
         i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1/diesel_cli-v2.3.6-i686-unknown-linux-gnu.zst"
-        i386.sha256 = "4bb11d42237006f98a9b944c444d55b7f4fbdde5334c3800511e6b813c19a2b5"
+        i386.sha256 = "a540164f5f3acab06e70b340dfbc81008330df6523a6813a0ca8df2c522b95de"
         autoupdate.asset.i386 = "diesel_cli-v\\d+\\(.\\d+)+-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -85,6 +91,8 @@ ram.runtime = "50M"
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
         sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
         autoupdate.strategy = "latest_github_tag"
+        autoupdate.needs_manual_tweaks = true
+
 
     [resources.system_user]
 
