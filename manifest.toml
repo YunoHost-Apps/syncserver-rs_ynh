@@ -116,7 +116,8 @@ ram.runtime = "50M"
       "build-essential",
       "libssl-dev",
       "libcurl4",
-      "python3-venv"
+      "python3-venv",
+      "pkg-config"
     ]
 
     [resources.database]
