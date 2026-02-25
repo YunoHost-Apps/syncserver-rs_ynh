@@ -22,13 +22,16 @@ chown -R $app:www-data "$install_dir"
 chmod u+x $install_dir/build/diesel
 chmod u+x $install_dir/syncserver
 
-
 #=================================================
 # BUILD
 #=================================================
 ynh_script_progression "Building the sources (it will take some time)..."
 
 myynh_build
+
+if ynh_app_upgrading_from_version_before 0.21.1.1~ynh2; then
+  ynh_safe_rm "$install_dir/bin"
+fi
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
