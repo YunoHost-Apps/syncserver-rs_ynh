@@ -15,8 +15,12 @@ ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir"
-ynh_setup_source --dest_dir="$install_dir/build" --source_id="upstream"
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]; then
+	ynh_setup_source --dest_dir="$install_dir" --source_id="bookworm"
+else
+	ynh_setup_source --dest_dir="$install_dir" --source_id="trixie"
+fi
+ynh_setup_source --dest_dir="$install_dir/build"
 ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
 chown -R $app:www-data "$install_dir"
 chmod u+x $install_dir/build/diesel

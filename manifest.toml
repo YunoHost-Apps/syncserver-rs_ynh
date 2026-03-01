@@ -40,58 +40,83 @@ ram.runtime = "50M"
 
     [resources.sources]
         [resources.sources.main]
-        amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/syncserver-0.21.1.1-x86_64-unknown-linux-gnu.zst"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
+        sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
+        autoupdate.strategy = "latest_github_tag"
+        autoupdate.needs_manual_tweaks = true
+
+        [resources.sources.bookworm]
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-x86_64-unknown-linux-gnu.zst"
         amd64.sha256 = "3cfd5ca885a0bc93bcfb6517a3361392e0b214983e53bd6565cc78b01e715fa1"
-        autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-x86_64-unknown-linux-gnu.zst"
+        autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/syncserver-0.21.1.1-aarch64-unknown-linux-gnu.zst"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-aarch64-unknown-linux-gnu.zst"
         arm64.sha256 = "5f19f760d765b05bd3fc400269abfc3e34aa9f4641cff62ec481e16821b18f77"
-        autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-aarch64-unknown-linux-gnu.zst"
+        autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/syncserver-0.21.1.1-armv7-unknown-linux-gnueabihf.zst"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-armv7-unknown-linux-gnueabihf.zst"
         armhf.sha256 = "9b296c5497fcd9846d475d4c73c87e4022404562f93da9a100e4b45214a5bb2e"
-        autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
+        autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
-        i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/syncserver-0.21.1.1-i686-unknown-linux-gnu.zst"
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-i686-unknown-linux-gnu.zst"
         i386.sha256 = "ae80a8e0aa1bdb312281475301b6ac8e091cccb5e1c00bf939b0fdfb00964878"
-        autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-i686-unknown-linux-gnu.zst"
+        autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
-        autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
         autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "syncserver-(\\d+(\\.\\d+)+)"
+        rename = "syncserver"
+        in_subdir = false
+
+        [resources.sources.trixie]
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "3cfd5ca885a0bc93bcfb6517a3361392e0b214983e53bd6565cc78b01e715fa1"
+        autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
+
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "5f19f760d765b05bd3fc400269abfc3e34aa9f4641cff62ec481e16821b18f77"
+        autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
+
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "9b296c5497fcd9846d475d4c73c87e4022404562f93da9a100e4b45214a5bb2e"
+        autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
+
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "ae80a8e0aa1bdb312281475301b6ac8e091cccb5e1c00bf939b0fdfb00964878"
+        autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-trixie-i686-unknown-linux-gnu.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
+        autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "syncserver-(\\d+(\\.\\d+)+)"
         rename = "syncserver"
         in_subdir = false
 
 
         [resources.sources.diesel]
-        amd64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/diesel_cli-v2.3.6-x86_64-unknown-linux-gnu.zst"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-x86_64-unknown-linux-gnu.zst"
         amd64.sha256 = "d16352bf44fc7676dcd14d554f811deaa84184b782c11faf326b659bc631307c"
-        autoupdate.asset.amd64 = "diesel_cli-v\\d+(\\.\\d+)+-x86_64-unknown-linux-gnu.zst"
+        autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/diesel_cli-v2.3.6-aarch64-unknown-linux-gnu.zst"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-aarch64-unknown-linux-gnu.zst"
         arm64.sha256 = "3ed28a95ef97336b26e75dff534ef9f58898c79f6603add37f40d7f3f93d045a"
-        autoupdate.asset.arm64 = "diesel_cli-v\\d+(\\.\\d+)+-aarch64-unknown-linux-gnu.zst"
+        autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/diesel_cli-v2.3.6-armv7-unknown-linux-gnueabihf.zst"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-armv7-unknown-linux-gnueabihf.zst"
         armhf.sha256 = "5fe6b1c3e4e1441b39d1ea8f13c1efac69e5db380a6d949b5c8c39a870580f11"
-        autoupdate.asset.armhf = "diesel_cli-v\\d+(\\.\\d+)+-armv7-unknown-linux-gnueabihf.zst"
+        autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
-        i386.url = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds/releases/download/0.21.1.1/diesel_cli-v2.3.6-i686-unknown-linux-gnu.zst"
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-i686-unknown-linux-gnu.zst"
         i386.sha256 = "a540164f5f3acab06e70b340dfbc81008330df6523a6813a0ca8df2c522b95de"
-        autoupdate.asset.i386 = "diesel_cli-v\\d+(\\.\\d+)+-i686-unknown-linux-gnu.zst"
+        autoupdate.asset.i386 = "diesel-v\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
-        autoupdate.upstream = "https://github.com/orhtej2/syncstorage-rs-yunohost-builds"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
         autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "diesel-v(\\d+\\.\\d+\\.\\d+)"
         rename = "diesel"
         in_subdir = false
-
-
-        [resources.sources.upstream]
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
-        sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
-        autoupdate.strategy = "latest_github_tag"
-        autoupdate.needs_manual_tweaks = true
 
 
     [resources.system_user]
