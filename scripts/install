@@ -21,7 +21,7 @@ ynh_hide_warnings ynh_exec_as_app \
 	CARGO_HOME="$install_dir/.cargo" \
 	bash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y"
 export PATH="$install_dir/.cargo/bin:$PATH"
-rustup install 1.89.0
+ynh_hide_warnings ynh_exec_as_app env PATH=$PATH rustup install 1.89.0
 ynh_hide_warnings ynh_exec_as_app \
 	cargo install diesel_cli --no-default-features --features 'mysql'
 
