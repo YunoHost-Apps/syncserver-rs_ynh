@@ -26,7 +26,7 @@ ynh_script_progression --message="Installing dependencies..." --weight=5
 
 ynh_exec_warn_less ynh_exec_as $app RUSTUP_HOME="$install_dir"/.rustup CARGO_HOME="$install_dir"/.cargo bash -c 'curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y'
 export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH rustup install 1.89.0
+ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH rustup install 1.86.0
 ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install diesel_cli --no-default-features --features 'mysql'
 
 #=================================================
@@ -82,7 +82,7 @@ pushd $install_dir/build
     popd
 
 	ynh_script_progression --message="Building syncserver"
-    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql
+    ynh_exec_warn_less ynh_exec_as $app env PATH=$PATH cargo install --path ./syncserver --locked --root $install_dir  --no-default-features --features=syncstorage-db/mysql --verbose
 popd
 
 
