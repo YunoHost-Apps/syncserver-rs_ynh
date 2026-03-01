@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.21.1.1~ynh2"
+version = "0.21.1.1~ynh3"
 
 maintainers = ["orhtej2"]
 
@@ -22,7 +22,7 @@ fund = "https://donate.mozilla.org/en-GB/"
 [integration]
 yunohost = ">= 12.1.39"
 helpers_version = "2.1"
-architectures = "all"
+architectures = ["amd64", "arm64", "armhf", "i386"]
 multi_instance = true
 
 sso = false
@@ -46,50 +46,46 @@ ram.runtime = "50M"
         autoupdate.needs_manual_tweaks = true
 
         [resources.sources.bookworm]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "3cfd5ca885a0bc93bcfb6517a3361392e0b214983e53bd6565cc78b01e715fa1"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "133fd6cb86ca72c2b2a86bd6d1ef25fa4f75e674c0e57a90d8a9e901fa5f0053"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "5f19f760d765b05bd3fc400269abfc3e34aa9f4641cff62ec481e16821b18f77"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "b56a6be4e1c442dd855d5ccf174a6b032f9fef5aca42e0cd6d7e924a03b867c6"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "9b296c5497fcd9846d475d4c73c87e4022404562f93da9a100e4b45214a5bb2e"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "65d0d221a71289a42277639edc52f902200f108bc49000486157d6e3fbefee78"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
-        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-bookworm-i686-unknown-linux-gnu.zst"
-        i386.sha256 = "ae80a8e0aa1bdb312281475301b6ac8e091cccb5e1c00bf939b0fdfb00964878"
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "c7c300fc0efc13fc8009aeae856e0d86c16fc99a1f5d0f2386253a5706d3d6a2"
         autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
         autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
         autoupdate.needs_manual_tweaks = true
-        autoupdate.version_regex = "syncserver-(\\d+(\\.\\d+)+)"
+        autoupdate.version_regex = "syncserver-(\\d+\\.\\d+\\.\\d+\\.?\\d{0,})"
         rename = "syncserver"
         in_subdir = false
 
         [resources.sources.trixie]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "3cfd5ca885a0bc93bcfb6517a3361392e0b214983e53bd6565cc78b01e715fa1"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "133fd6cb86ca72c2b2a86bd6d1ef25fa4f75e674c0e57a90d8a9e901fa5f0053"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "5f19f760d765b05bd3fc400269abfc3e34aa9f4641cff62ec481e16821b18f77"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "b56a6be4e1c442dd855d5ccf174a6b032f9fef5aca42e0cd6d7e924a03b867c6"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "9b296c5497fcd9846d475d4c73c87e4022404562f93da9a100e4b45214a5bb2e"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "65d0d221a71289a42277639edc52f902200f108bc49000486157d6e3fbefee78"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
-
-        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1/syncserver-0.21.1-trixie-i686-unknown-linux-gnu.zst"
-        i386.sha256 = "ae80a8e0aa1bdb312281475301b6ac8e091cccb5e1c00bf939b0fdfb00964878"
-        autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-trixie-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
         autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
         autoupdate.needs_manual_tweaks = true
-        autoupdate.version_regex = "syncserver-(\\d+(\\.\\d+)+)"
+        autoupdate.version_regex = "syncserver-(\\d+\\.\\d+\\.\\d+\\.?\\d{0,})"
         rename = "syncserver"
         in_subdir = false
 
