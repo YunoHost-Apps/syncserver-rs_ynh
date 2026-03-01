@@ -93,19 +93,19 @@ ram.runtime = "50M"
 
         [resources.sources.diesel]
         amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "d16352bf44fc7676dcd14d554f811deaa84184b782c11faf326b659bc631307c"
+        amd64.sha256 = "9a1bbb1fd0dbbb9e4bb25b769434b7f42370a05077f6f1f850bff0a2dce5e2c2"
         autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
         arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "3ed28a95ef97336b26e75dff534ef9f58898c79f6603add37f40d7f3f93d045a"
+        arm64.sha256 = "1712699e7ffff1e69c2a24bb549416e5607b720b9ac8ea3ada887ac3656ca2ac"
         autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
         armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "5fe6b1c3e4e1441b39d1ea8f13c1efac69e5db380a6d949b5c8c39a870580f11"
+        armhf.sha256 = "b284f973ad38afd150ddf9392abf53d3c5d0ac9a1a634b1fcf188dcc3272a0d9"
         autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-i686-unknown-linux-gnu.zst"
-        i386.sha256 = "a540164f5f3acab06e70b340dfbc81008330df6523a6813a0ca8df2c522b95de"
+        i386.sha256 = "a1d4b59fdba4e4303a097c3b0f68ff165c3d806c2e075833fe2a8df24ce9c572"
         autoupdate.asset.i386 = "diesel-v\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
 
         autoupdate.strategy = "latest_github_release"
