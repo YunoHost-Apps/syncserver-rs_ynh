@@ -3,5 +3,5 @@
 test_format = 1.0
 
 [default]
-    test_upgrade_from.fa15ef8eaade799cfe7959b876ec5ae3a57168e6.name = "Upgrade from 0.20.0~1"
+    test_upgrade_from.aa6de3354ef6bdfc7eefeec5be59a339ca80497e.name = "Upgrade from 0.20.0~1"
     
