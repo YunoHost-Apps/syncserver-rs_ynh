@@ -5,4 +5,4 @@ export RUST_BACKTRACE=full
 
 source __INSTALL_DIR__/venv/bin/activate
 
-__INSTALL_DIR__/bin/syncserver --config __INSTALL_DIR__/config.toml
+__INSTALL_DIR__/syncserver --config __INSTALL_DIR__/config.toml

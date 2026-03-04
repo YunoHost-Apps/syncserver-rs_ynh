@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.21.1.1~ynh1"
+version = "0.21.1.1~ynh3"
 
 maintainers = ["orhtej2"]
 
@@ -20,9 +20,11 @@ code = "https://github.com/mozilla-services/syncstorage-rs"
 fund = "https://donate.mozilla.org/en-GB/"
 
 [integration]
-yunohost = ">= 11.1.21"
-architectures = "all"
+yunohost = ">= 12.1.39"
+helpers_version = "2.1"
+architectures = ["amd64", "arm64", "armhf", "i386"]
 multi_instance = true
+
 sso = false
 ldap = false
 
@@ -32,44 +34,113 @@ ram.runtime = "50M"
 
 [install]
     [install.domain]
-    # this is a generic question - ask strings are automatically handled by YunoHost's core
-    type = "domain" 
+    type = "domain"
 
 [resources]
-    # See the packaging documentation for the full set
-    # of explanation regarding the behavior and properties for each of those
-    [resources.sources]
 
+    [resources.sources]
         [resources.sources.main]
-        # This will pre-fetch the asset which can then be deployed during the install/upgrade scripts with :
-        #    ynh_setup_source --dest_dir="$install_dir"
-        # You can also define other assets than "main" and add --source_id="foobar" in the previous command
         url = "https://github.com/mozilla-services/syncstorage-rs/archive/bf4ba77bdcd06b2e450b16076d55f7e1eaa6bf08.tar.gz"
         sha256 = "93034f05d684436ce33563f25e1513923983f0637268bccde6ffac9664a9e55b"
-        autoupdate.strategy = "latest_github_tag" 
+        autoupdate.strategy = "latest_github_tag"
+        autoupdate.needs_manual_tweaks = true
 
-    # This will provision/deprovision a unix system user
+        [resources.sources.bookworm]
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "133fd6cb86ca72c2b2a86bd6d1ef25fa4f75e674c0e57a90d8a9e901fa5f0053"
+        autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
+
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "b56a6be4e1c442dd855d5ccf174a6b032f9fef5aca42e0cd6d7e924a03b867c6"
+        autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
+
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "65d0d221a71289a42277639edc52f902200f108bc49000486157d6e3fbefee78"
+        autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
+
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-bookworm-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "c7c300fc0efc13fc8009aeae856e0d86c16fc99a1f5d0f2386253a5706d3d6a2"
+        autoupdate.asset.i386 = "syncserver-\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
+        autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "syncserver-(\\d+\\.\\d+\\.\\d+\\.?\\d{0,})"
+        rename = "syncserver"
+        in_subdir = false
+        prefetch = false
+
+        [resources.sources.trixie]
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "043a922afe7fbe5d9581a249c35744859359a277528669b411bd6f93f6266d65"
+        autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
+
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "14f6a2b35b2eac7a54dc4d333b57cb114bcf79ebe7d90da8f912ae6ce0b5917c"
+        autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
+
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.21.1.1/syncserver-0.21.1.1-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "dc865a6b4dbd7333c6eab3ca4c2cd15cd5bf346189d6f8d9e5bc8ab6810d893c"
+        autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
+        autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "syncserver-(\\d+\\.\\d+\\.\\d+\\.?\\d{0,})"
+        rename = "syncserver"
+        in_subdir = false
+        prefetch = false
+
+        [resources.sources.diesel]
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "9a1bbb1fd0dbbb9e4bb25b769434b7f42370a05077f6f1f850bff0a2dce5e2c2"
+        autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
+
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "1712699e7ffff1e69c2a24bb549416e5607b720b9ac8ea3ada887ac3656ca2ac"
+        autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
+
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "b284f973ad38afd150ddf9392abf53d3c5d0ac9a1a634b1fcf188dcc3272a0d9"
+        autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
+
+        i386.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.6/diesel-v2.3.6-bookworm-i686-unknown-linux-gnu.zst"
+        i386.sha256 = "a1d4b59fdba4e4303a097c3b0f68ff165c3d806c2e075833fe2a8df24ce9c572"
+        autoupdate.asset.i386 = "diesel-v\\d+(\\.\\d+)+-bookworm-i686-unknown-linux-gnu.zst"
+
+        autoupdate.strategy = "latest_github_release"
+        autoupdate.upstream = "https://github.com/YunoHost-Apps/syncstorage-rs-build"
+        autoupdate.needs_manual_tweaks = true
+        autoupdate.version_regex = "diesel-v(\\d+\\.\\d+\\.\\d+)"
+        rename = "diesel"
+        in_subdir = false
+
+
     [resources.system_user]
 
-    # This will create/remove the install dir as /var/www/$app
-    # and store the corresponding setting $install_dir
     [resources.install_dir]
 
-    # This will configure SSOwat permission for $domain/$path/
-    # The initial allowed group of user is configured via the init_main_permission question (public=visitors, private=all_users)
     [resources.permissions]
-        main.url = "/"
-        main.show_tile = false
-        main.allowed = "visitors"
-        main.protected = true
+    main.url = "/"
+    main.show_tile = false
+    main.allowed = "visitors"
+    main.protected = true
 
-    # This will pick a random port for reverse-proxying and store it as the $port setting
     [resources.ports]
 
     [resources.apt]
-    packages = "mariadb-server default-libmysqlclient-dev cmake python3-dev python3-pip python3-setuptools python3-wheel build-essential libssl-dev libffi-dev libcurl4 pkg-config python3-venv"
+    packages = [
+      "mariadb-server",
+      "libmariadb-dev-compat", 
+      "python3-pip",
+      "python3-setuptools",
+      "python3-wheel",
+      "build-essential",
+      "libssl-dev",
+      "libcurl4",
+      "python3-venv",
+      "pkg-config"
+    ]
 
-    # This will automatically provision/deprovison a database and store the corresponding credentials in settings $db_user, $db_name, $db_pwd
     [resources.database]
-        type = "mysql"
-    
+    type = "mysql"
