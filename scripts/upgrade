@@ -11,25 +11,20 @@ ynh_script_progression "Stopping $app's systemd service..."
 ynh_systemctl --service=$app --action="stop" #--wait_until="Server closing"
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-ynh_hide_warnings ynh_exec_as_app \
-	RUSTUP_HOME="$install_dir/.rustup" \
-	CARGO_HOME="$install_dir/.cargo" \
-	bash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y"
-export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_hide_warnings ynh_exec_as_app \
-	cargo install diesel_cli --no-default-features --features 'mysql'
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]; then
+	ynh_setup_source --dest_dir="$install_dir" --source_id="bookworm"
+else
+	ynh_setup_source --dest_dir="$install_dir" --source_id="trixie"
+fi
 ynh_setup_source --dest_dir="$install_dir/build"
+ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
 chown -R $app:www-data "$install_dir"
+chmod u+x $install_dir/build/diesel
+chmod u+x $install_dir/syncserver
 
 #=================================================
 # BUILD
@@ -37,6 +32,10 @@ chown -R $app:www-data "$install_dir"
 ynh_script_progression "Building the sources (it will take some time)..."
 
 myynh_build
+
+if ynh_app_upgrading_from_version_before 0.21.1.1~ynh2; then
+  ynh_safe_rm "$install_dir/bin"
+fi
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS

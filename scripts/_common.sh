@@ -15,10 +15,10 @@ myynh_build() {
 	pushd "$install_dir/build"
 		ynh_print_info "Seeding the databases..."
 		# syncstorage db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
 		# tokenserver db
-		diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
+		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
 		# Add a service in tokenserver-db on install only
 		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]]
 		then
@@ -56,14 +56,8 @@ myynh_build() {
 					"$install_dir/venv/bin/poetry" run python add_node.py "https://${domain%%+(/)}" 10
 			fi
 		popd
-
-		ynh_print_info "Building syncserver"
-		ynh_hide_warnings ynh_exec_as_app \
-			cargo install --path ./syncserver --locked --root "$install_dir" --no-default-features --features=syncstorage-db/mysql --features=py_verifier --force
 	popd
 
-	ynh_safe_rm "$install_dir/.cargo"
-	ynh_safe_rm "$install_dir/.rustup"
 	ynh_safe_rm "$install_dir/.cache"
 	ynh_safe_rm "$install_dir/.local"
 	ynh_safe_rm "$install_dir/build"

@@ -12,25 +12,20 @@ ynh_app_setting_set --key=secret --value=$secret
 ynh_app_setting_set --key=master_secret --value=$master_secret
 
 #=================================================
-# INSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression "Installing dependencies..."
-
-ynh_hide_warnings ynh_exec_as_app \
-	RUSTUP_HOME="$install_dir/.rustup" \
-	CARGO_HOME="$install_dir/.cargo" \
-	bash -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -q -y"
-export PATH="$install_dir/.cargo/bin:$PATH"
-ynh_hide_warnings ynh_exec_as_app \
-	cargo install diesel_cli --no-default-features --features 'mysql'
-
-#=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
 ynh_script_progression "Setting up source files..."
 
+if [[ $YNH_DEBIAN_VERSION == "bookworm" ]]; then
+	ynh_setup_source --dest_dir="$install_dir" --source_id="bookworm"
+else
+	ynh_setup_source --dest_dir="$install_dir" --source_id="trixie"
+fi
 ynh_setup_source --dest_dir="$install_dir/build"
+ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
 chown -R $app:www-data "$install_dir"
+chmod u+x $install_dir/build/diesel
+chmod u+x $install_dir/syncserver
 
 #=================================================
 # PROVISION SECOND DB
