@@ -28,7 +28,7 @@ ynh_mysql_db_shell "$db_name_tokenserver" <<< "UPDATE nodes set node='https://${
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemctl --service=$app --action="start" #--wait_until="Server running on http://127.0.0.1"
+ynh_systemctl --service=$app --action="start" --wait_until="Server running on http://127.0.0.1"
 
 #=================================================
 # END OF SCRIPT
