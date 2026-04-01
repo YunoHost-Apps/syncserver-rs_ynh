@@ -18,12 +18,7 @@ myynh_build() {
 		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
 		# tokenserver db
-		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-db/migrations run
-		# Add a service in tokenserver-db on install only
-		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]]
-		then
-			ynh_mysql_db_shell "$db_name_tokenserver" <<< "INSERT INTO services (id, service, pattern) VALUES (1, 'sync-1.5', '{node}/1.5/{uid}');"
-		fi
+		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-mysql/migrations run
 
 		ynh_print_info "Preparing the syncserver sources"
 		ynh_hide_warnings ynh_exec_as_app \
