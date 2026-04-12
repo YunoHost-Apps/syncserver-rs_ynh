@@ -9,7 +9,7 @@
 #=================================================
 
 myynh_build() {
-	ynh_exec_as_app python -m venv "$install_dir/venv" --upgrade-deps
+	ynh_exec_as_app env UV_PYTHON_INSTALL_DIR="$install_dir/.python_runtime" "$install_dir/.uv/uv" venv --python 3.13 --seed --clear "$install_dir/venv"
 	ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
 
 	pushd "$install_dir/build"
