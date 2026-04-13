@@ -9,10 +9,10 @@
 #=================================================
 
 myynh_build() {
-	ynh_exec_as_app python -m venv "$install_dir/venv" --upgrade-deps
-	ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
 
 	pushd "$install_dir/build"
+		ynh_exec_as_app env UV_PYTHON_INSTALL_DIR="$install_dir/.python_runtime" "$install_dir/.uv/uv" venv --python 3.13 --seed --clear "$install_dir/venv"
+		ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
 		ynh_print_info "Seeding the databases..."
 		# syncstorage db
 		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
