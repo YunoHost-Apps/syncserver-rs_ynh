@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.22.3~ynh5"
+version = "0.22.3~ynh6"
 
 maintainers = ["orhtej2"]
 
@@ -108,12 +108,12 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.uv]
-        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.10/uv-x86_64-unknown-linux-gnu.tar.gz"
-        amd64.sha256 = "077e1a0777bcf516e02f4ef245e269c8d1baa780438e4c50e09c5c997f85538a"
-        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.10/uv-aarch64-unknown-linux-gnu.tar.gz"
-        arm64.sha256 = "91d5f4583539640765662ef86edcf3bf4db07439b622c7bed50c961240162046"
-        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.10/uv-armv7-unknown-linux-gnueabihf.tar.gz"
-        armhf.sha256 = "ba259f6c14b5653f1b36400fb8c7862e499a4537201edda76991f2b044014fdb"
+        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.11/uv-x86_64-unknown-linux-gnu.tar.gz"
+        amd64.sha256 = "a767848254391855c96df271e9ca8b7f72dd172d310460447853d25d907b9ae0"
+        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.11/uv-aarch64-unknown-linux-gnu.tar.gz"
+        arm64.sha256 = "155fe4d3b3cb4bfce118ab4b1380f71515ae874d13d9858171b4f9c26e16684d"
+        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.11/uv-armv7-unknown-linux-gnueabihf.tar.gz"
+        armhf.sha256 = "c102609d34c06bdec87896d738a0e91df21f71faf21ae4379c7a1d7c961879e1"
 
         in_subdir = true
 
