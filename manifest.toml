@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.23.0~ynh2"
+version = "0.23.0~ynh3"
 
 maintainers = ["orhtej2"]
 
@@ -88,16 +88,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.diesel]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.7/diesel-v2.3.7-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "e931f3cdbe29a6f2cc66eea099d2955efe029643e524438b70a3f7763c74b328"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.9/diesel-v2.3.9-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "65535390ff67ec1de2823241e43479731d49a985d69ba2eba36e5c99b56be97a"
         autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.7/diesel-v2.3.7-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "7cbd639cf45ab9530d9b6a3604a94f34ae83646fdf6d3f29c72e96f256d8b3c3"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.9/diesel-v2.3.9-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "5e2b0cee32782b1bf7aa21923cdd2db89028c8c5a099304e8edebd2a89267223"
         autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.7/diesel-v2.3.7-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "64e5c0c3658ed2a3cce9478e0ba7e8dc1f38f3cf8b59d45e11819d3a51988920"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.9/diesel-v2.3.9-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "a69caad4fd8042070924eb931bd844143cb49bf1557bd9cd86f0133ed45338b4"
         autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
