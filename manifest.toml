@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.23.0~ynh7"
+version = "0.23.1~ynh1"
 
 maintainers = ["orhtej2"]
 
@@ -40,8 +40,8 @@ ram.runtime = "50M"
 
     [resources.sources]
         [resources.sources.main]
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.23.0.tar.gz"
-        sha256 = "d9d542aea5ca1e354ca7e0d28661461e15e58459440f503c7a15d93a4ecf64a4"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.23.1.tar.gz"
+        sha256 = "1dfe300d4694c5503898c1324c5ec4d53ec0f18bf5d3ab829581672fc26ec0f6"
         autoupdate.strategy = "latest_github_tag"
         autoupdate.needs_manual_tweaks = true
 
@@ -108,12 +108,12 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.uv]
-        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.20/uv-x86_64-unknown-linux-gnu.tar.gz"
-        amd64.sha256 = "5de211d9278af365497d387e25316907b3b4a9f25b4476dd6dbf238d6f85cff3"
-        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.20/uv-aarch64-unknown-linux-gnu.tar.gz"
-        arm64.sha256 = "c8b5b7f9c804b640da0bb66cddddf0a00ce971f64d8076622d70bd141bc80857"
-        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.20/uv-armv7-unknown-linux-gnueabihf.tar.gz"
-        armhf.sha256 = "b8004b8be37d13ae8c05e8d55028d9ea3ea387fa61a96eeda7812e1a413fd9f8"
+        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-unknown-linux-gnu.tar.gz"
+        amd64.sha256 = "8c88519b0ef0af9801fcdee419bbb12116bd9e6b18e162ae093c932d8b264050"
+        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-unknown-linux-gnu.tar.gz"
+        arm64.sha256 = "88e800834007cc5efd4675f166eb2a51e7e3ad19876d85fa8805a6fb5c922397"
+        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-armv7-unknown-linux-gnueabihf.tar.gz"
+        armhf.sha256 = "929440f991ccd8097e01be1ec831f673ac7bbf508e94819b4270f2873f69e658"
 
         in_subdir = true
 
