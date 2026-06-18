@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.23.1~ynh2"
+version = "0.23.3~ynh1"
 
 maintainers = ["orhtej2"]
 
@@ -40,22 +40,22 @@ ram.runtime = "50M"
 
     [resources.sources]
         [resources.sources.main]
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.23.1.tar.gz"
-        sha256 = "1dfe300d4694c5503898c1324c5ec4d53ec0f18bf5d3ab829581672fc26ec0f6"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.23.3.tar.gz"
+        sha256 = "842ca80109b1db3ae0e7ddcdf41ecd506215236bf29ce46149f2b11b8c06d840"
         autoupdate.strategy = "latest_github_tag"
         autoupdate.needs_manual_tweaks = true
 
         [resources.sources.bookworm]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "71d9dbf8c5c3807b53ea8e1efbc95c7330010ea317c4da5e4d3dd9f3802679a4"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "a85e9dd4885615b51d95daa2eddd9f8dd01515bb7c88cd69f82a1424cbadfca8"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "f3744c1a11851607b7a7201ddd7946bb331d2d61dbd681c63cb0158417a5182d"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "e4bf77fb576b3e6b08e54f346d92c7a1aaed1b0bf1bb609cdbd99d335d6b8d07"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "4783e42d95a5f7bab2265a51fc017cab3a781200c6315c28c3f237169dd31ba2"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "eee2d4c091531d2b45650b954fe37ca0430f459ceb64ae2cea595d4b24e04f17"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -67,16 +67,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.trixie]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-trixie-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "35c57e9960d69dba5d032a4ea89a40e077ed12b60ab12534f9639946c248d681"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "c8bc14d29fa5f539cef83717087866ed4d1fdebf8f0759b65733f23a13873c86"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-trixie-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "735cb07269932d4c80f977f0cbcf11ef4bb64a1dda0216b2deb61485bfee365d"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "c6ccb1947152647192fd4baedfdb3397b62e05e66896cf17a0614bc9b70bed52"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.1/syncserver-0.23.1-trixie-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "8b4d107df491b775e6125be805d2cd129706513444933b0a41d47672e767eb2d"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "8a6298c6747a2e3bd8caa3bb4aebb98974454d9405f1cb1f5dcad774fc241d62"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -108,12 +108,12 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.uv]
-        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-x86_64-unknown-linux-gnu.tar.gz"
-        amd64.sha256 = "8c88519b0ef0af9801fcdee419bbb12116bd9e6b18e162ae093c932d8b264050"
-        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-aarch64-unknown-linux-gnu.tar.gz"
-        arm64.sha256 = "88e800834007cc5efd4675f166eb2a51e7e3ad19876d85fa8805a6fb5c922397"
-        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.21/uv-armv7-unknown-linux-gnueabihf.tar.gz"
-        armhf.sha256 = "929440f991ccd8097e01be1ec831f673ac7bbf508e94819b4270f2873f69e658"
+        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.22/uv-x86_64-unknown-linux-gnu.tar.gz"
+        amd64.sha256 = "30075b14624a62021198319f22e08f1651a97d4026a8c84dab6abcbfaba0d81c"
+        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.22/uv-aarch64-unknown-linux-gnu.tar.gz"
+        arm64.sha256 = "54b22e9f5570f3643cdf85a33bbc8e9feb3fc6e836a7c660c05378434ef44fe2"
+        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.22/uv-armv7-unknown-linux-gnueabihf.tar.gz"
+        armhf.sha256 = "7ff74f488d401f66a0314f65b6970edb011885e09f154e31a307e6d620daad0d"
 
         in_subdir = true
 
