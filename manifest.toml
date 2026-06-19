@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.23.3~ynh1"
+version = "0.23.3~ynh2"
 
 maintainers = ["orhtej2"]
 
@@ -46,16 +46,16 @@ ram.runtime = "50M"
         autoupdate.needs_manual_tweaks = true
 
         [resources.sources.bookworm]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "a85e9dd4885615b51d95daa2eddd9f8dd01515bb7c88cd69f82a1424cbadfca8"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "d75f0cb4757063f290d225358ee31fcb46247d7957f60069630e1013f843cdc6"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "e4bf77fb576b3e6b08e54f346d92c7a1aaed1b0bf1bb609cdbd99d335d6b8d07"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "63228568c409ee4702d12500b7bd4c9faa5d2bdcd58e96dcb7a36e7ef982ce2a"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "eee2d4c091531d2b45650b954fe37ca0430f459ceb64ae2cea595d4b24e04f17"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "d0ada6a7c76abfa9dad489de01da37ab5590b761fb57eb5b1b12398dfd4a2ddb"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -67,16 +67,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.trixie]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "c8bc14d29fa5f539cef83717087866ed4d1fdebf8f0759b65733f23a13873c86"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "80c23f5fecc227e98716c6f7149a6fa8bd74bbb455f6788aba0ad1f786e8d6d9"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "c6ccb1947152647192fd4baedfdb3397b62e05e66896cf17a0614bc9b70bed52"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "7c36469a94d0e476fa143234ba81556691b8d7cdf6b2b3b90c9510e9e5523099"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.2/syncserver-0.23.2-trixie-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "8a6298c6747a2e3bd8caa3bb4aebb98974454d9405f1cb1f5dcad774fc241d62"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "a81fd8bcfe473a2874b1885638800cac5dfd8467a1028f26321f628ac5b1d507"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
