@@ -88,8 +88,8 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.diesel]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11/diesel-v2.3.11-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "a6091b8944ddd3949d1e8fef19dd3e1ca89563aec0272978b54a1decc517f00d"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.10/diesel-v2.3.10-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "28765d16b3c1d5c51aca8edfea83010b164f31c7e1b5b450cce60d5ad5895f9b"
         autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
         arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11/diesel-v2.3.11-bookworm-aarch64-unknown-linux-gnu.zst"
