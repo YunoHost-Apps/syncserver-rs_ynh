@@ -18,9 +18,11 @@ myynh_build() {
 		ynh_exec_as_app "$install_dir/venv/bin/pip" install -r requirements-tokenserver.txt
 		ynh_print_info "Seeding the databases..."
 		# syncstorage db
+		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations list
 		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
 
 		# tokenserver db
+		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-mysql/migrations list
 		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-mysql/migrations run
 
 		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]]
