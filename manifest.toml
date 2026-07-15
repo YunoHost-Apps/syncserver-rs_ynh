@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.23.3~ynh6"
+version = "0.23.3~ynh7"
 
 maintainers = ["orhtej2"]
 
@@ -88,16 +88,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.diesel]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.10/diesel-v2.3.10-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "e7ebca2b872c1c994c85eb1846351335ce21c6dc4b9ba3f77c2dd98cd92bac65"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11/diesel-v2.3.11-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "a6091b8944ddd3949d1e8fef19dd3e1ca89563aec0272978b54a1decc517f00d"
         autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.10/diesel-v2.3.10-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "28765d16b3c1d5c51aca8edfea83010b164f31c7e1b5b450cce60d5ad5895f9b"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11/diesel-v2.3.11-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "89b276a8203d17a0250ab5ea33dc1e3e4abe38d10ecd39e85d77b1afc4b00ba2"
         autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.10/diesel-v2.3.10-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "236c5ded0b9f4259c513b4822cd0e464ab256a594ab7cd57365f68696ce6356c"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11/diesel-v2.3.11-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "13119d7b7b92fb24414234b6ac8fc1e2082e51e16ff0b68a3bfdacb6ea6f1564"
         autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -108,12 +108,12 @@ ram.runtime = "50M"
         in_subdir = false
 
         [resources.sources.uv]
-        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-x86_64-unknown-linux-gnu.tar.gz"
-        amd64.sha256 = "6426a73c3837e6e2483ee344cbc00f36394d179afcba6183cb77437e67db4af0"
-        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-aarch64-unknown-linux-gnu.tar.gz"
-        arm64.sha256 = "befa1a59c91e96eb601b0fd9a97c03dd666f17baba644b2b4db9c59a767e387e"
-        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.26/uv-armv7-unknown-linux-gnueabihf.tar.gz"
-        armhf.sha256 = "e1a6e135f68c237f969f2acb5277ef2691dec582e99d9f6c237c21583bd26f7b"
+        amd64.url = "https://github.com/astral-sh/uv/releases/download/0.11.29/uv-x86_64-unknown-linux-gnu.tar.gz"
+        amd64.sha256 = "04f8b82f5d47f0512dcd32c67a4a6f16a0ea27c81537c338fd0ad6b23cebe829"
+        arm64.url = "https://github.com/astral-sh/uv/releases/download/0.11.29/uv-aarch64-unknown-linux-gnu.tar.gz"
+        arm64.sha256 = "94500fb064ae3c971a873cba64d94694c50677e0a4dbf78735c80509e7429919"
+        armhf.url = "https://github.com/astral-sh/uv/releases/download/0.11.29/uv-armv7-unknown-linux-gnueabihf.tar.gz"
+        armhf.sha256 = "7b5717ae304fbb1e94104699fb8c08b32d1537fedc90dd8fcf87768d818951ed"
 
         in_subdir = true
 
