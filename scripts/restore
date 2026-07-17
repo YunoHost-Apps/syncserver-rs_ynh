@@ -11,14 +11,14 @@ ynh_script_progression "Restoring the app main directory..."
 ynh_restore "$install_dir"
 
 #=================================================
-# RESTORE THE MYSQL DATABASE
+# RESTORE THE POSTGRESQL DATABASE
 #=================================================
-ynh_script_progression "Restoring the MySQL database..."
+ynh_script_progression "Restoring the database..."
 
-ynh_mysql_db_shell < ./db.sql
+ynh_psql_db_shell < ./db.sql
 
-ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
-ynh_mysql_db_shell "$db_name_tokenserver" < ./db_tokenserver.sql
+ynh_psql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
+ynh_psql_db_shell "$db_name_tokenserver" < ./db_tokenserver.sql
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS

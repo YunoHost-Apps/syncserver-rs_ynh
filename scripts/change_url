@@ -21,7 +21,7 @@ ynh_config_change_url_nginx
 # Retarget worker nodes
 #=================================================
 
-ynh_mysql_db_shell "$db_name_tokenserver" <<< "UPDATE nodes set node='https://${new_domain%%+(/)}' WHERE node='https://${old_domain%%+(/)}'";
+ynh_psql_db_shell "$db_name_tokenserver" <<< "UPDATE nodes set node='https://${new_domain%%+(/)}' WHERE node='https://${old_domain%%+(/)}'";
 
 #=================================================
 # START SYSTEMD SERVICE

@@ -7,7 +7,7 @@ port = __PORT__
 
 # Example Syncstorage settings:
 # Example MySQL DSN:
-syncstorage.database_url = "mysql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME__"
+syncstorage.database_url = "postgres://__DB_USER__:__DB_PWD__@localhost/__DB_NAME__"
 # Example Spanner DSN:
 # database_url="spanner://projects/SAMPLE_GCP_PROJECT/instances/SAMPLE_SPANNER_INSTANCE/databases/SAMPLE_SPANNER_DB"
 # enable quota limits
@@ -18,9 +18,9 @@ syncstorage.enabled = true
 syncstorage.limits.max_total_records = 1666 # See issues #298/#333
 
 # Example Tokenserver settings:
-tokenserver.database_url = "mysql://__DB_USER__:__DB_PWD__@localhost/__DB_NAME_TOKENSERVER__"
+tokenserver.database_url = "postgres://__DB_USER__:__DB_PWD__@localhost/__DB_NAME_TOKENSERVER__"
 tokenserver.enabled = true
-tokenserver.node_type = "mysql"
+tokenserver.node_type = "postgres"
 
 tokenserver.fxa_metrics_hash_secret = "__SECRET__"
 tokenserver.fxa_email_domain = "api.accounts.firefox.com"
