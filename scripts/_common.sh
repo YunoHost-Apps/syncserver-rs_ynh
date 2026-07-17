@@ -17,16 +17,11 @@ myynh_build() {
 		ynh_exec_as_app "$install_dir/venv/bin/pip" install -r requirements.txt
 		ynh_exec_as_app "$install_dir/venv/bin/pip" install -r requirements-tokenserver.txt
 		ynh_print_info "Seeding the databases..."
-		./diesel --version
 		# syncstorage db
-		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-postgres/migrations list
 		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-postgres/migrations run
-		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-postgres/migrations list
 
 		# tokenserver db
-		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-postgres/migrations list
 		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-postgres/migrations run
-		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-postgres/migrations list
 
 		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]] || ynh_app_upgrading_from_version_before 0.23.3~ynh9
 		then
