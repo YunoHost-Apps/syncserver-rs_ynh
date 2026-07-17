@@ -35,14 +35,14 @@ chmod u+x "$install_dir/.uv/uv"
 #=================================================
 # PROVISION SECOND DB
 #=================================================
-ynh_script_progression "Configuring second MySQL database..."
+ynh_script_progression "Configuring second PostgreSQL database..."
 
-ynh_mysql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
+ynh_psql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
 
 #=================================================
 # BUILD
 #=================================================
-ynh_script_progression "Building the sources (it will take some time)..."
+ynh_script_progression "Provisioning the sources (it will take some time)..."
 
 myynh_build
 
