@@ -24,10 +24,10 @@ ynh_backup "/etc/systemd/system/$app.service"
 #=================================================
 # BACKUP THE DATABASE
 #=================================================
-ynh_print_info "Backing up the mysql database..."
+ynh_print_info "Backing up the database..."
 
-ynh_mysql_dump_db > db.sql
-ynh_mysql_dump_db "$db_name_tokenserver" > db_tokenserver.sql
+ynh_psql_dump_db > db.sql
+ynh_psql_dump_db "$db_name_tokenserver" > db_tokenserver.sql
 
 #=================================================
 # END OF SCRIPT

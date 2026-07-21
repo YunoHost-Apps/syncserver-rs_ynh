@@ -10,6 +10,11 @@ ynh_script_progression "Stopping $app's systemd service..."
 
 ynh_systemctl --service=$app --action="stop" --wait_until="Server closing"
 
+if ynh_app_upgrading_from_version_before 0.23.3~ynh9; then
+	ynh_script_progression "Configuring second PostgreSQL database..."
+	ynh_psql_create_db "$db_name_tokenserver" "$db_user" "$db_pwd"
+fi
+
 #=================================================
 # DOWNLOAD, CHECK AND UNPACK SOURCE
 #=================================================
@@ -22,6 +27,7 @@ else
 fi
 ynh_setup_source --dest_dir="$install_dir/build"
 ynh_setup_source --dest_dir="$install_dir/build" --source_id="diesel"
+ynh_setup_source --dest_dir="$install_dir/build" --source_id="requirements"
 ynh_setup_source --dest_dir="$install_dir/.uv" --source_id="uv"
 chown -R $app:www-data "$install_dir"
 chmod u+x $install_dir/build/diesel

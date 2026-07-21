@@ -11,46 +11,27 @@
 myynh_build() {
 
 	pushd "$install_dir/build"
+		ynh_print_info "Creating venv..."
+		ynh_safe_rm "$install_dir/venv"
 		ynh_exec_as_app env UV_PYTHON_INSTALL_DIR="$install_dir/.python_runtime" "$install_dir/.uv/uv" venv --python 3.13 --seed --clear "$install_dir/venv"
-		ynh_hide_warnings ynh_exec_as_app "$install_dir/venv/bin/pip" install -U poetry
+		ynh_exec_as_app "$install_dir/venv/bin/pip" install -r requirements.txt
+		ynh_exec_as_app "$install_dir/venv/bin/pip" install -r requirements-tokenserver.txt
 		ynh_print_info "Seeding the databases..."
 		# syncstorage db
-		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-mysql/migrations run
+		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name" migration --migration-dir syncstorage-postgres/migrations run
 
 		# tokenserver db
-		./diesel --database-url "mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-mysql/migrations run
+		./diesel --database-url "postgres://$db_user:${db_pwd}@localhost/$db_name_tokenserver" migration --migration-dir tokenserver-postgres/migrations run
 
-		ynh_print_info "Preparing the syncserver sources"
-		ynh_hide_warnings ynh_exec_as_app \
-			VIRTUAL_ENV="$install_dir/venv" \
-			"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
-		ynh_hide_warnings ynh_exec_as_app \
-			VIRTUAL_ENV="$install_dir/venv" \
-			"$install_dir/venv/bin/poetry" env use "$install_dir/venv/bin/python"
-		ynh_hide_warnings ynh_exec_as_app \
-			VIRTUAL_ENV="$install_dir/venv" \
-			"$install_dir/venv/bin/poetry" install
-
-		pushd "tools/tokenserver"
-			ynh_print_info "Preparing the tokenserver sources"
-			ynh_hide_warnings ynh_exec_as_app \
-				VIRTUAL_ENV="$install_dir/venv" \
-				"$install_dir/venv/bin/poetry" config virtualenvs.in-project true
-			ynh_hide_warnings ynh_exec_as_app \
-				VIRTUAL_ENV="$install_dir/venv" \
-				"$install_dir/venv/bin/poetry" env use "$install_dir/venv/bin/python"
-			ynh_hide_warnings ynh_exec_as_app \
-				VIRTUAL_ENV="$install_dir/venv" \
-				"$install_dir/venv/bin/poetry" install
+		if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]] || ynh_app_upgrading_from_version_before 0.23.3~ynh9
+		then
 			# Add a node on install only
-			if [[ -z ${YNH_APP_UPGRADE_TYPE:-} ]]
-			then
+			pushd "tools/tokenserver"
 				ynh_hide_warnings ynh_exec_as_app \
-					SYNC_TOKENSERVER__DATABASE_URL="mysql://$db_user:${db_pwd}@localhost/$db_name_tokenserver" \
-					VIRTUAL_ENV="$install_dir/venv" \
-					"$install_dir/venv/bin/poetry" run python add_node.py "https://${domain%%+(/)}" 10
-			fi
-		popd
+					SYNC_TOKENSERVER__DATABASE_URL="postgres://$db_user:${db_pwd}@localhost/$db_name_tokenserver" \
+						$install_dir/venv/bin/python add_node.py "https://${domain%%+(/)}" 10
+			popd
+		fi
 	popd
 
 	ynh_safe_rm "$install_dir/.cache"
