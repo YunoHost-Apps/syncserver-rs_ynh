@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.24.0~ynh1"
+version = "0.24.0~ynh2"
 
 maintainers = ["orhtej2"]
 
@@ -46,16 +46,16 @@ ram.runtime = "50M"
         autoupdate.needs_manual_tweaks = true
 
         [resources.sources.bookworm]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "2b88b72010b98fb86fab7f86a453c54cd55f2307667bb2acea4c365d4e57e60d"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "629c52392c658132344dabdefcfc6fca749ba4291d7c9efc19552623d3887c69"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "e55506fd060bd916b530b933769d4700888280946efc65e89dcce548fa6f8928"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "59046b345f675f31964c6c0e74c91c8565f06ab43916131d906dcc2a157f5c7a"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "be851ed657c7b3db70b743616a061529ba5cf4bd357da85785200ebd1b5474e4"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "3a0dcc0e330e529658086701bb95ac047dcddaa1c9f5d2f93756a494314213ef"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -67,16 +67,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.trixie]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-trixie-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "c8918eca1615846b514e89667172857d4e8ed4a91b46ddafc562f1eec0477188"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-trixie-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "c65aa969f9c6f3b07c24002c8a3c9d41eb87ed6ee4e9e2b2232c7cbf1a70db73"
         autoupdate.asset.amd64 = "syncserver-\\d+(\\.\\d+)+-trixie-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-trixie-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "84c7e83427b734d5b48e669252d4c58ee1bc31a45616a69f0c11ef1bb80b3594"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-trixie-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "3551a7a522163c8f90d1fe674f453f5aa08cdfdb51ed4242b09fbb15a7b4351f"
         autoupdate.asset.arm64 = "syncserver-\\d+(\\.\\d+)+-trixie-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3-postgres/syncserver-0.23.3-trixie-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "679305e32f4d7af08bedd2643fe09b2ee9d62ca381ba0267aefe2b5dc1295b42"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-trixie-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "84585988266b44ae09146d9d755aecadd0e02d6b2dd4740903ab70ecdb7e222e"
         autoupdate.asset.armhf = "syncserver-\\d+(\\.\\d+)+-trixie-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -88,16 +88,16 @@ ram.runtime = "50M"
         prefetch = false
 
         [resources.sources.diesel]
-        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11-postgres/diesel-v2.3.11-bookworm-x86_64-unknown-linux-gnu.zst"
-        amd64.sha256 = "b2768061d0d6506bff0f3081bf356d7965911c478f4be3d6197525b3130e3ae2"
+        amd64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.14-postgres/diesel-v2.3.14-bookworm-x86_64-unknown-linux-gnu.zst"
+        amd64.sha256 = "ec7eae2961be2ba32af1517da53e679fe8ed2bc8e5139ed890b3b39815d080a0"
         autoupdate.asset.amd64 = "diesel-v\\d+(\\.\\d+)+-bookworm-x86_64-unknown-linux-gnu.zst"
 
-        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11-postgres/diesel-v2.3.11-bookworm-aarch64-unknown-linux-gnu.zst"
-        arm64.sha256 = "80b15a5f7e6cb745b605122fc382d3b7d8abe89a7d8940334e6844e5715537c3"
+        arm64.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.14-postgres/diesel-v2.3.14-bookworm-aarch64-unknown-linux-gnu.zst"
+        arm64.sha256 = "45ed83dccde68768ea485e5729cfd977eb84752db4e1228571bbf470a4029cb6"
         autoupdate.asset.arm64 = "diesel-v\\d+(\\.\\d+)+-bookworm-aarch64-unknown-linux-gnu.zst"
 
-        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.11-postgres/diesel-v2.3.11-bookworm-armv7-unknown-linux-gnueabihf.zst"
-        armhf.sha256 = "992d3b724b544d54b5d8cd651f9d4036ee266f5e061dda7b2a6fff08e4b54829"
+        armhf.url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/diesel-v2.3.14-postgres/diesel-v2.3.14-bookworm-armv7-unknown-linux-gnueabihf.zst"
+        armhf.sha256 = "b5a41b0c52a120f0d4ddca89e65e2ac354543e31df5183daa23c940bde0f07a4"
         autoupdate.asset.armhf = "diesel-v\\d+(\\.\\d+)+-bookworm-armv7-unknown-linux-gnueabihf.zst"
 
         autoupdate.strategy = "latest_github_release"
@@ -124,8 +124,8 @@ ram.runtime = "50M"
         autoupdate.asset.armhf = "^uv-armv7-unknown-linux-gnueabihf.tar.gz$"
 
         [resources.sources.requirements]
-        url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.23.3/syncserver-0.23.3-requirements.tar.zst"
-        sha256 = "9b2d402f4484ac8c1b9e9468a15b9956e9b04cca3201589ab0f1dc3160c3f960"
+        url = "https://github.com/YunoHost-Apps/syncstorage-rs-build/releases/download/syncserver-0.24.0-postgres/syncserver-0.24.0-requirements.tar.zst"
+        sha256 = "ab53cd3833f71f0b359ede810341a166c4611752a6dc6862dc7c46906a95b262"
         autoupdate.asset = "syncserver-\\d+(\\.\\d+)+-requirements\\.tar\\.zst"
 
         autoupdate.strategy = "latest_github_release"
