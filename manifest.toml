@@ -8,7 +8,7 @@ name = "Firefox SyncStorage"
 description.en = "Synchronize tabs, passwords, history etc. between your Firefox instances"
 description.fr = "Synchronisez for onglets, mot de passe, historique etc entre vos Firefox"
 
-version = "0.24.0~ynh3"
+version = "0.24.1~ynh1"
 
 maintainers = ["orhtej2"]
 
@@ -40,8 +40,8 @@ ram.runtime = "50M"
 
     [resources.sources]
         [resources.sources.main]
-        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.24.0.tar.gz"
-        sha256 = "f5ecc42e25e8c10c3e7d9b68dcc70962f9d3178eb2f0d8183a90d94609859cc4"
+        url = "https://github.com/mozilla-services/syncstorage-rs/archive/refs/tags/0.24.1.tar.gz"
+        sha256 = "f6670008365f284c7535e5455123da23ee226f7b009903a9d69e8aad9073889e"
         autoupdate.strategy = "latest_github_tag"
         autoupdate.needs_manual_tweaks = true
 
